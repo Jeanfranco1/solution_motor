@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Admin | Login</title>
+    <!-- Icono Sevens-Ingenieros-SAC -->
+    <link rel="apple-touch-icon" href="../dist/img/logo-icono.png">
+    <link rel="shortcut icon" href="../dist/img/logo-icono.png">
+
+    <!-- Google Font: Source Sans Pro -->
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Source+Sans+Pro:300,400,400i,700&display=fallback" />
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="../plugins/fontawesome-free/css/all.min.css" />
+    <!-- SweetAlert2 -->
+    <link rel="stylesheet" href="../plugins/sweetalert2-theme-bootstrap-4/bootstrap-4.min.css" />
+    <!-- Toastr -->
+    <link rel="stylesheet" href="../plugins/toastr/toastr.min.css" />
+    <!-- Theme style -->
+    <link rel="stylesheet" href="../dist/css/adminlte.min.css" />
+    <style>
+      .btn-outline-warning {
+        color: #000000 !important;
+        border-color: #2574f5 !important;
+        font-weight: bold;
+      }
+      .btn-outline-warning:hover {
+        color: #ffffff !important;
+        border-color: #2574f5 !important;
+        background-color: #2574f5;
+      }       
+    </style>
+  </head>
+
+  <body class="hold-transition login-page" style="background-image: url('../dist/img/fondo-login-2.jpg'); background-repeat: no-repeat; background-size: cover;">
+    <div class="login-box">
+      
+      <!-- /.login-logo -->
+      <div class="card" style="background-color: #ffffff96; border-radius: 20px;">
+        <div class="card-body login-card-body" style="background-color: #ffffff4d; border-radius: 20px;">
+          <div class="login-logo">
+            <a href="login.html">
+              <img src="../dist/img/logo_azul.png" alt="" style="width: 100%;">
+            </a>
+            
+          </div>
+          <p class="login-box-msg" style="font-weight: bold;" >Ingrese sus credenciales para ingresar al sistema.</p>
+
+          <form method="post" id="frmAcceso" autocomplet="off">
+            <div class="input-group mb-3">
+              <input type="text" id="logina" name="logina" class="form-control" placeholder="Usuario" required />
+              <div class="input-group-append">
+                <div class="input-group-text" style="background: linear-gradient(to right, #ffffff 10%, #2574f5 100%);">
+                  <span class="fa fa-user" style="color: #040404;"></span>
+                </div>
+              </div>
+            </div>
+            <div class="input-group mb-3 ">
+              <input type="password" id="clavea" name="clavea" class="form-control" placeholder="Password" required />
+              <div class="input-group-append">
+                <div class="input-group-text" style="background: linear-gradient(to right, #ffffff 10%, #2574f5 100%);">
+                  <span class="fas fa-lock" style="color: #040404;"></span>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col-12">
+                <!-- <button type="submit" class="btn btn-primary btn-block">Ingresar</button> -->
+                <input type="submit" value="Ingresar" class="btn btn-outline-warning btn-block" />
+              </div>
+              <!-- /.col -->
+            </div>
+          </form>
+        </div>
+        <!-- /.login-card-body -->
+      </div>
+    </div>
+
+    <!-- jQuery -->
+    <script src="../plugins/jquery/jquery.min.js"></script>
+    <!-- Bootstrap 4 -->
+    <script src="../plugins/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <!-- SweetAlert2 -->
+    <script src="../plugins/sweetalert2/sweetalert2.min.js"></script>
+    <!-- Toastr -->
+    <script src="../plugins/toastr/toastr.min.js"></script>
+    <!-- AdminLTE App -->
+    <script src="../dist/js/adminlte.min.js"></script>
+    <!-- AdminLTE for demo purposes -->
+    <!-- <script src="../dist/js/demo.js"></script> -->
+    <script>
+      $(function () {
+        var Toast = Swal.mixin({
+          toast: true,
+          position: "top-end",
+          showConfirmButton: false,
+          timer: 3000,
+        });
+      });
+    </script>
+    <script type="text/javascript" src="scripts/login.js"></script>
+  </body>
+</html>
