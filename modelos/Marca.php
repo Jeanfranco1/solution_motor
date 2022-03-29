@@ -1,7 +1,7 @@
 <?php 
 //Incluímos inicialmente la conexión a la base de datos
 require "../config/Conexion.php";
-Class Color
+Class Marca
 {
 	//Implementamos nuestro constructor
 	public function __construct()
@@ -12,56 +12,55 @@ Class Color
 	//Implementamos un método para insertar registros
 	public function insertar($nombre)
 	{
-		//var_dump($nombre);die();
-		$sql="INSERT INTO color(nombre)VALUES('$nombre')";
+		$sql="INSERT INTO marca(nombre)VALUES ('$nombre')";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementamos un método para editar registros
-	public function editar($idcolor,$nombre)
+	public function editar($idmarca,$nombre)
 	{
-		$sql="UPDATE color SET nombre='$nombre' WHERE idcolor='$idcolor'";
+		$sql="UPDATE marca SET nombre='$nombre' WHERE idmarca='$idmarca'";
 		return ejecutarConsulta($sql);
 	}
 
-	//Implementamos un método para desactivar color
-	public function desactivar($idcolor)
+	//Implementamos un método para desactivar marca
+	public function desactivar($idmarca)
 	{
-		$sql="UPDATE color SET estado='0' WHERE idcolor='$idcolor'";
+		$sql="UPDATE marca SET estado='0' WHERE idmarca='$idmarca'";
 		return ejecutarConsulta($sql);
 	}
 
-	//Implementamos un método para activar color
-	public function activar($idcolor)
+	//Implementamos un método para activar marca
+	public function activar($idmarca)
 	{
-		$sql="UPDATE color SET estado='1' WHERE idcolor='$idcolor'";
+		$sql="UPDATE marca SET estado='1' WHERE idmarca='$idmarca'";
 		return ejecutarConsulta($sql);
 	}
 
-	//Implementamos un método para eliminar color
-	public function eliminar($idcolor)
+	//Implementamos un método para desactivar marca
+	public function eliminar($idmarca)
 	{
-		$sql="UPDATE color SET estado_delete='0' WHERE idcolor='$idcolor'";
+		$sql="UPDATE marca SET estado_delete='0' WHERE idmarca='$idmarca'";
 		return ejecutarConsulta($sql);
 	}
 
 	//Implementar un método para mostrar los datos de un registro a modificar
-	public function mostrar($idcolor)
+	public function mostrar($idmarca)
 	{
-		$sql="SELECT * FROM color WHERE idcolor='$idcolor'";
+		$sql="SELECT * FROM marca WHERE idmarca='$idmarca'";
 		return ejecutarConsultaSimpleFila($sql);
 	}
 
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT * FROM color WHERE idcolor>'1' AND estado=1  AND estado_delete=1 ORDER BY nombre ASC";
+		$sql="SELECT * FROM marca 	WHERE estado=1  AND estado_delete=1  ORDER BY nombre ASC";
 		return ejecutarConsulta($sql);		
 	}
 	//Implementar un método para listar los registros y mostrar en el select
 	public function select()
 	{
-		$sql="SELECT * FROM color where estado=1";
+		$sql="SELECT * FROM marca where estado=1";
 		return ejecutarConsulta($sql);		
 	}
 }

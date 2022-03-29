@@ -20,15 +20,35 @@ if (!function_exists('ejecutarConsulta'))
 	{
 		global $conexion;
 		$query = $conexion->query($sql);
-		return $query;
+		if ($conexion->error) {
+			try {   
+				throw new Exception("MySQL error $conexion->error <br> Query:<br> $query", $conexion->errno);   
+			} catch(Exception $e ) {
+				echo "Error No: ".$e->getCode(). " - ". $e->getMessage() . "<br >";
+				echo nl2br($e->getTraceAsString());
+			}
+		}else {
+			return $query;
+		}
+		
 	}
 
 	function ejecutarConsultaSimpleFila($sql)
 	{
 		global $conexion;
-		$query = $conexion->query($sql);		
-		$row = $query->fetch_assoc();
-		return $row;
+		$query = $conexion->query($sql);
+		if ($conexion->error) {
+			try {   
+				throw new Exception("MySQL error $conexion->error <br> Query:<br> $query", $conexion->errno);   
+			} catch(Exception $e ) {
+				echo "Error No: ".$e->getCode(). " - ". $e->getMessage() . "<br >";
+				echo nl2br($e->getTraceAsString());
+			}
+		}else {
+			$row = $query->fetch_assoc();
+		    return $row;
+		}		
+		
 	}
 
 	function ejecutarConsultaArray($sql)
@@ -39,16 +59,37 @@ if (!function_exists('ejecutarConsulta'))
 
 		$query = $conexion->query($sql);
 
-		for ($data = array (); $row = $query->fetch_assoc(); $data[] = $row);
-		return $data;
+		if ($conexion->error) {
+			try {   
+				throw new Exception("MySQL error $conexion->error <br> Query:<br> $query", $conexion->errno);   
+			} catch(Exception $e ) {
+				echo "Error No: ".$e->getCode(). " - ". $e->getMessage() . "<br >";
+				echo nl2br($e->getTraceAsString());
+			}
+		}else {
+			for ($data = array (); $row = $query->fetch_assoc(); $data[] = $row);
+		    return $data;
+		}
+
+		
 	}
 	
 
 	function ejecutarConsulta_retornarID($sql)
 	{
 		global $conexion;
-		$query = $conexion->query($sql);		
-		return $conexion->insert_id;			
+		$query = $conexion->query($sql);	
+		if ($conexion->error) {
+			try {   
+				throw new Exception("MySQL error $conexion->error <br> Query:<br> $query", $conexion->errno);   
+			} catch(Exception $e ) {
+				echo "Error No: ".$e->getCode(). " - ". $e->getMessage() . "<br >";
+				echo nl2br($e->getTraceAsString());
+			}
+		}else {
+			return $conexion->insert_id;
+		}	
+					
 	}
 
 	function limpiarCadena($str)

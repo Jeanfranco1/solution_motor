@@ -1,28 +1,31 @@
-var tabla_ocupacion;
+var tabla_categoria;
 
 //Función que se ejecuta al inicio
 function init() {
-  listar_ocupacion();
+  listar_categoria();
   $("#bloc_Recurso").addClass("menu-open");
 
   $("#mRecurso").addClass("active");
 
   //$("#lAllMateriales").addClass("active");
 
-  $("#guardar_registro_ocupacion").on("click", function (e) {
+
+  $("#guardar_categoria").on("click", function (e) {
     
-    $("#submit-form-ocupacion").submit();
+    $("#submit-form-categoria").submit();
+    
   });
 
   // Formato para telefono
   $("[data-mask]").inputmask();
 
+
 }
 //Función limpiar
-function limpiar_ocupacion() {
+function limpiar_categoria() {
   //Mostramos los Materiales
-  $("#idocupacion").val("");
-  $("#nombre_ocupacion").val(""); 
+  $("#idcategoria").val("");
+  $("#nombre_categoria").val(""); 
 
   // Limpiamos las validaciones
   $(".form-control").removeClass('is-valid');
@@ -30,17 +33,17 @@ function limpiar_ocupacion() {
 }
 
 //Función Listar
-function listar_ocupacion() {
+function listar_categoria() {
 
-  tabla_ocupacion=$('#tabla-ocupacion').dataTable({
+  tabla_categoria=$('#tabla-categoria').dataTable({
     "responsive": true,
     lengthMenu: [[5, 10, 25, 75, 100, 200, -1], [5, 10, 25, 75, 100, 200, "Todos"]],//mostramos el menú de registros a revisar
     "aProcessing": true,//Activamos el procesamiento del datatables
     "aServerSide": true,//Paginación y filtrado realizados por el servidor
     dom: '<Bl<f>rtip>',//Definimos los elementos del control de tabla
-    buttons: ['copyHtml5', 'excelHtml5', 'pdf'],
+    buttons: ['copyHtml5', 'excelHtml5','pdf'],
     "ajax":{
-        url: '../ajax/ocupacion.php?op=listar_ocupacion',
+        url: '../ajax/categoria.php?op=listar',
         type : "get",
         dataType : "json",						
         error: function(e){
@@ -53,11 +56,6 @@ function listar_ocupacion() {
         if (data[0] != '') {
           $("td", row).eq(0).addClass("text-center");   
            
-        }
-        // columna: #
-        if (data[1] != '') {
-          $("td", row).eq(1).addClass("text-nowrap");   
-            
         }
       },
     "language": {
@@ -78,12 +76,12 @@ function listar_ocupacion() {
 
 //Función para guardar o editar
 
-function guardaryeditar_ocupacion(e) {
+function guardaryeditar_categoria(e) {
   // e.preventDefault(); //No se activará la acción predeterminada del evento
-  var formData = new FormData($("#form-ocupacion")[0]);
+  var formData = new FormData($("#form-categoria")[0]);
  
   $.ajax({
-    url: "../ajax/ocupacion.php?op=guardaryeditar_ocupacion",
+    url: "../ajax/categoria.php?op=guardaryeditar",
     type: "POST",
     data: formData,
     contentType: false,
@@ -95,11 +93,11 @@ function guardaryeditar_ocupacion(e) {
 
 				toastr.success('Registrado correctamente')				 
 
-	      tabla_ocupacion.ajax.reload();
+	      tabla_categoria.ajax.reload();
          
-				limpiar_ocupacion();
+				limpiar_categoria();
 
-        $("#modal-agregar-ocupacion").modal("hide");
+        $("#modal-agregar-categoria").modal("hide");
 
 			}else{
 
@@ -109,28 +107,28 @@ function guardaryeditar_ocupacion(e) {
   });
 }
 
-function mostrar_ocupacion(idocupacion) {
-  limpiar_ocupacion(); //console.log(idocupacion);
+function mostrar_categoria(idcategoria) {
+  limpiar_categoria();
 
-  $("#modal-agregar-ocupacion").modal("show")
+  $("#modal-agregar-categoria").modal("show")
 
-  $.post("../ajax/ocupacion.php?op=mostrar_ocupacion", { idocupacion: idocupacion }, function (data, status) {
+  $.post("../ajax/categoria.php?op=mostrar_categoria", { idcategoria: idcategoria }, function (data, status) {
 
     data = JSON.parse(data);  console.log(data);  
 
     $("#cargando-1-fomulario").show();
     $("#cargando-2-fomulario").hide();
 
-    $("#idocupacion").val(data.idocupacion);
-    $("#nombre_ocupacion").val(data.nombre_ocupacion);
+    $("#idcategoria").val(data.idcategoria);
+    $("#nombre_categoria").val(data.nombre); 
   });
 }
 
 //Función para desactivar registros
-function desactivar_ocupacion(idocupacion) {
+function desactivar_categoria(idcategoria) {
   Swal.fire({
     title: "¿Está Seguro de  Desactivar el registro?",
-    text: "Ocupación",
+    text: "Unidad de medida",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#28a745",
@@ -138,21 +136,21 @@ function desactivar_ocupacion(idocupacion) {
     confirmButtonText: "Si, desactivar!",
   }).then((result) => {
     if (result.isConfirmed) {
-      $.post("../ajax/ocupacion.php?op=desactivar_ocupacion", { idocupacion: idocupacion }, function (e) {
+      $.post("../ajax/categoria.php?op=desactivar_categoria", { idcategoria: idcategoria }, function (e) {
 
         Swal.fire("Desactivado!", "Tu registro ha sido desactivado.", "success");
     
-        tabla_ocupacion.ajax.reload();
+        tabla_categoria.ajax.reload();
       });      
     }
   });   
 }
 
 //Función para activar registros
-function activar_ocupacion(idocupacion) {
+function activar_categoria(idcategoria) {
   Swal.fire({
     title: "¿Está Seguro de  Activar el registro?",
-    text: "Ocupación",
+    text: "Unidad de medida",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#28a745",
@@ -160,19 +158,19 @@ function activar_ocupacion(idocupacion) {
     confirmButtonText: "Si, activar!",
   }).then((result) => {
     if (result.isConfirmed) {
-      $.post("../ajax/ocupacion.php?op=activar_ocupacion", { idocupacion: idocupacion }, function (e) {
+      $.post("../ajax/categoria.php?op=activar_categoria", { idcategoria: idcategoria }, function (e) {
 
         Swal.fire("Activado!", "Tu registro ha sido activado.", "success");
 
-        tabla_ocupacion.ajax.reload();
+        tabla_categoria.ajax.reload();
       });
       
     }
   });      
 }
 
-//Función para desactivar registros
-function eliminar_ocupacion(idocupacion) {
+//Función para eliminar registros
+function eliminar_categoria(idcategoria) {
   //----------------------------
  Swal.fire({
 
@@ -191,47 +189,47 @@ function eliminar_ocupacion(idocupacion) {
 
   if (result.isConfirmed) {
    //op=desactivar
-    $.post("../ajax/ocupacion.php?op=desactivar_ocupacion", { idocupacion: idocupacion }, function (e) {
+    $.post("../ajax/categoria.php?op=desactivar_categoria", { idcategoria: idcategoria }, function (e) {
 
       Swal.fire("Desactivado!", "Tu registro ha sido desactivado.", "success");
 
-      tabla_ocupacion.ajax.reload();
-    });  
+      tabla_categoria.ajax.reload();
+    }); 
 
   }else if (result.isDenied) {
    //op=eliminar
-    $.post("../ajax/ocupacion.php?op=eliminar_ocupacion", { idocupacion: idocupacion }, function (e) {
+    $.post("../ajax/categoria.php?op=eliminar_categoria", { idcategoria: idcategoria }, function (e) {
 
       Swal.fire("Eliminado!", "Tu registro ha sido Eliminado.", "success");
 
-      tabla_ocupacion.ajax.reload();
+      tabla_categoria.ajax.reload();
     }); 
 
   }
 
-});   
+});
 }
 
 init();
 
 $(function () {
 
-  
+  nombre_categoria
   $.validator.setDefaults({
 
     submitHandler: function (e) {
-        guardaryeditar_ocupacion(e);
+        guardaryeditar_categoria(e);
       
     },
   });
 
-  $("#form-ocupacion").validate({
+  $("#form-categoria").validate({
     rules: {
-      nombre_ocupacion: { required: true }      // terms: { required: true },
+      nombre_categoria: { required: true }      // terms: { required: true },
     },
     messages: {
-      nombre_ocupacion: {
-        required: "Por favor ingrese nombre.", 
+      nombre_categoria: {
+        required: "Por favor ingrese nombre_categoria.", 
       },
 
     },

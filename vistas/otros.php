@@ -33,69 +33,7 @@
             <!-- Content Wrapper. Contains page content -->
             <div class="content-wrapper">
               <div class="row">
-                <!--====Bancos============-->
-                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
-                  <!-- Content Header (Page header) -->
-                  <section class="content-header">
-                    <div class="container-fluid">
-                      <div class="row mb-2">
-                        <div class="col-sm-6">
-                          <h1>Bancos</h1>
-                        </div>
-                        <div class="col-sm-6">
-                          <ol class="breadcrumb float-sm-right">
-                            <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Bancos</li>
-                          </ol>
-                        </div>
-                      </div>
-                    </div>
-                    <!-- /.container-fluid -->
-                  </section>
-
-                  <!-- Main content -->
-                  <section class="content">
-                    <div class="container-fluid">
-                      <div class="card card-primary card-outline">
-                        <div class="card-header">
-                          <h3 class="card-title">
-                            <button type="button" class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-agregar-bancos" onclick="limpiar_banco();"><i class="fas fa-plus-circle"></i> Agregar</button>
-                            Administrar Bancos.
-                          </h3>
-                        </div>
-                        <!-- /.card-header -->
-                        <div class="card-body">
-                          <table id="tabla-bancos" class="table table-bordered table-striped display" style="width: 100% !important;">
-                            <thead>
-                              <tr>
-                                <th class="text-center">#</th>
-                                <th class="">Acciones</th>
-                                <th>Nombre</th>
-                                <th>Formato Cta/CCI</th>
-                                <th>Estado</th>
-                              </tr>
-                            </thead>
-                            <tbody></tbody>
-                            <tfoot>
-                              <tr>
-                                <th class="text-center">#</th>
-                                <th class="">Acciones</th>
-                                <th>Nombre</th>
-                                <th>Formato</th>
-                                <th>Estado</th>
-                              </tr>
-                            </tfoot>
-                          </table>
-                        </div>
-                        <!-- /.card-body -->
-                      </div>
-                      <!-- /.card -->
-                    </div>
-                    <!-- /.container-fluid -->
-                  </section>
-                  <!-- /.content -->
-                </div>
-
+                
                 <!--====Color============-->
                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
                   <!-- Content Header (Page header) -->
@@ -159,19 +97,19 @@
                   <!-- /.content -->
                 </div>
 
-                <!--====Unidad de medida==-->
+                <!--====Categoria==-->
                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
                   <!-- Content Header (Page header) -->
                   <section class="content-header">
                     <div class="container-fluid">
                       <div class="row mb-2">
                         <div class="col-sm-6">
-                          <h1>Unidades de Medida</h1>
+                          <h1>Categoria</h1>
                         </div>
                         <div class="col-sm-6">
                           <ol class="breadcrumb float-sm-right">
                             <li class="breadcrumb-item"><a href="#">Home</a></li>
-                            <li class="breadcrumb-item active">Unidad de Medida</li>
+                            <li class="breadcrumb-item active">Categoria</li>
                           </ol>
                         </div>
                       </div>
@@ -187,19 +125,18 @@
                       <div class="card card-primary card-outline">
                         <div class="card-header">
                           <h3 class="card-title">
-                            <button type="button" class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-agregar-unidad-m" onclick="limpiar_unidades_m();"><i class="fas fa-plus-circle"></i> Agregar</button>
-                            Admnistrar Unidad de medidas.
+                            <button type="button" class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-agregar-categoria" onclick="limpiar_unidades_m();"><i class="fas fa-plus-circle"></i> Agregar</button>
+                            Admnistrar Categoria.
                           </h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                          <table id="tabla-unidades-m" class="table table-bordered table-striped display" style="width: 100% !important;">
+                          <table id="tabla-categoria" class="table table-bordered table-striped display" style="width: 100% !important;">
                             <thead>
                               <tr>
                                 <th class="text-center">#</th>
                                 <th class="">Acciones</th>
-                                <th>Nombre</th>
-                                <th>Abreviación</th>
+                                <th>Nombre</th>                          
                                 <th>Estado</th>
                               </tr>
                             </thead>
@@ -209,7 +146,6 @@
                                 <th class="text-center">#</th>
                                 <th class="">Acciones</th>
                                 <th>Nombre</th>
-                                <th>Abreviación</th>
                                 <th>Estado</th>
                               </tr>
                             </tfoot>
@@ -224,14 +160,14 @@
                   <!-- /.content -->
                 </div>
 
-                <!--====Ocupación==-->
+                <!--====Marca==-->
                 <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
                   <!-- Content Header (Page header) -->
                   <section class="content-header">
                     <div class="container-fluid">
                       <div class="row mb-2">
                         <div class="col-sm-6">
-                          <h1>Ocupación</h1>
+                          <h1>Marca</h1>
                         </div>
                       </div>
                     </div>
@@ -246,13 +182,13 @@
                       <div class="card card-primary card-outline">
                         <div class="card-header">
                           <h3 class="card-title">
-                            <button type="button" class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-agregar-ocupacion" onclick="limpiar_ocupacion();"><i class="fas fa-plus-circle"></i> Agregar</button>
-                            Admnistrar Ocupaciones.
+                            <button type="button" class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-agregar-marca" onclick="limpiar_ocupacion();"><i class="fas fa-plus-circle"></i> Agregar</button>
+                            Admnistrar Marcas.
                           </h3>
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                          <table id="tabla-ocupacion" class="table table-bordered table-striped display" style="width: 100% !important;">
+                          <table id="tabla-marca" class="table table-bordered table-striped display" style="width: 100% !important;">
                             <thead>
                               <tr>
                                 <th class="text-center">#</th>
@@ -467,85 +403,7 @@
                 </div>
               </div>
 
-              <!--================ modals-Bancos  ======================-->
-              <div class="modal fade" id="modal-agregar-bancos">
-                <div class="modal-dialog modal-dialog-scrollable modal-md">
-                  <div class="modal-content">
-                    <div class="modal-header">
-                      <h4 class="modal-title">Agregar Banco</h4>
-                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                        <span class="text-danger" aria-hidden="true">&times;</span>
-                      </button>
-                    </div>
-
-                    <div class="modal-body">
-                      <!-- form start -->
-                      <form id="form-bancos" name="form-bancos" method="POST" autocomplete="off">
-                        <div class="card-body">
-                          <div class="row" id="cargando-1-fomulario">
-                            <!-- id banco -->
-                            <input type="hidden" name="idbancos" id="idbancos" />
-
-                            <!-- Nombre -->
-                            <div class="col-lg-12 class_pading">
-                              <div class="form-group">
-                                <label for="nombre">Nombre</label>
-                                <input type="text" name="nombre" id="nombre" class="form-control" placeholder="Nombre del banco." />
-                              </div>
-                            </div>
-
-                            <!-- alias -->
-                            <div class="col-lg-12 class_pading">
-                              <div class="form-group">
-                                <label for="alias">Alias</label>
-                                <input type="text" name="alias" id="alias" class="form-control" placeholder="Alias del banco." />
-                              </div>
-                            </div>
-
-                            <!-- Formato cuenta bancaria -->
-                            <div class="col-lg-12 class_pading">
-                              <div class="form-group">
-                                <label for="formato_cta">Formato Cuenta Bancaria</label>
-                                <input type="text" name="formato_cta" id="formato_cta" class="form-control" placeholder="Formato." value="00000000" data-inputmask="'mask': ['99-99-99-99', '99 99 99 99']" data-mask />
-                              </div>
-                            </div>
-
-                            <!-- Formato CCI -->
-                            <div class="col-lg-12 class_pading">
-                              <div class="form-group">
-                                <label for="formato_cci">Formato CCI</label>
-                                <input type="text" name="formato_cci" id="formato_cci" class="form-control" placeholder="Formato." value="00000000" data-inputmask="'mask': ['99-99-99-99', '99 99 99 99']" data-mask />
-                              </div>
-                            </div>
-
-                            <!-- Formato CCI -->
-                            <div class="col-lg-12 class_pading">
-                              <div class="form-group">
-                                <label for="formato_detracciones">Formato Detracción</label>
-                                <input type="text" name="formato_detracciones" id="formato_detracciones" class="form-control" placeholder="Formato." value="00000000" data-inputmask="'mask': ['99-99-99-99', '99 99 99 99']" data-mask />
-                              </div>
-                            </div>
-                          </div>
-
-                          <div class="row" id="cargando-2-fomulario" style="display: none;">
-                            <div class="col-lg-12 text-center">
-                              <i class="fas fa-spinner fa-pulse fa-6x"></i><br />
-                              <br />
-                              <h4>Cargando...</h4>
-                            </div>
-                          </div>
-                        </div>
-                        <!-- /.card-body -->
-                        <button type="submit" style="display: none;" id="submit-form-bancos">Submit</button>
-                      </form>
-                    </div>
-                    <div class="modal-footer justify-content-between">
-                      <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="limpiar();">Close</button>
-                      <button type="submit" class="btn btn-success" id="guardar_registro">Guardar Cambios</button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              
               <!--================  modals-Color  ======================-->
               <div class="modal fade" id="modal-agregar-color">
                 <div class="modal-dialog modal-dialog-scrollable modal-md">
@@ -592,12 +450,12 @@
                   </div>
                 </div>
               </div>
-              <!--================ modals-Unidad-medidas  ======================-->
-              <div class="modal fade" id="modal-agregar-unidad-m">
+              <!--================ modals-Categoria  ======================-->
+              <div class="modal fade" id="modal-agregar-categoria">
                 <div class="modal-dialog modal-dialog-scrollable modal-md">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h4 class="modal-title">Agregar Unidad de Medida</h4>
+                      <h4 class="modal-title">Agregar Categoria</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span class="text-danger" aria-hidden="true">&times;</span>
                       </button>
@@ -605,23 +463,16 @@
 
                     <div class="modal-body">
                       <!-- form start -->
-                      <form id="form-unidad-m" name="form-unidad-m" method="POST" autocomplete="off">
+                      <form id="form-categoria" name="form-categoria" method="POST" autocomplete="off">
                         <div class="card-body">
                           <div class="row" id="cargando-1-fomulario">
-                            <!-- id idunidad_medida -->
-                            <input type="hidden" name="idunidad_medida" id="idunidad_medida" />
-                            <!-- nombre_medida -->
+                            <!-- id idcategoria -->
+                            <input type="hidden" name="idcategoria" id="idcategoria" />
+                            <!-- nombre -->
                             <div class="col-lg-12 class_pading">
                               <div class="form-group">
                                 <label for="nombre">Nombre</label>
-                                <input type="text" name="nombre_medida" class="form-control" id="nombre_medida" placeholder="Nombre de la medida" />
-                              </div>
-                            </div>
-                            <!-- abreviacion -->
-                            <div class="col-lg-12 class_pading">
-                              <div class="form-group">
-                                <label for="abreviacion">Abreviación</label>
-                                <input type="text" name="abreviacion" class="form-control" id="abreviacion" placeholder="Abreviación." />
+                                <input type="text" name="nombre_categoria" class="form-control" id="nombre_categoria" placeholder="Nombre de categoria" />
                               </div>
                             </div>
                           </div>
@@ -635,22 +486,22 @@
                           </div>
                         </div>
                         <!-- /.card-body -->
-                        <button type="submit" style="display: none;" id="submit-form-unidad-m">Submit</button>
+                        <button type="submit" style="display: none;" id="submit-form-categoria">Submit</button>
                       </form>
                     </div>
                     <div class="modal-footer justify-content-between">
                       <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="limpiar_unidades_m();">Close</button>
-                      <button type="submit" class="btn btn-success" id="guardar_registro_unidad_m">Guardar Cambios</button>
+                      <button type="submit" class="btn btn-success" id="guardar_categoria">Guardar Cambios</button>
                     </div>
                   </div>
                 </div>
               </div>
-              <!--================ modals-ocupacion  ======================-->
-              <div class="modal fade" id="modal-agregar-ocupacion">
+              <!--================ modals-marca  ======================-->
+              <div class="modal fade" id="modal-agregar-marca">
                 <div class="modal-dialog modal-dialog-scrollable modal-md">
                   <div class="modal-content">
                     <div class="modal-header">
-                      <h4 class="modal-title">Agregar Ocupación</h4>
+                      <h4 class="modal-title">Agregar Marca</h4>
                       <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                         <span class="text-danger" aria-hidden="true">&times;</span>
                       </button>
@@ -658,16 +509,16 @@
 
                     <div class="modal-body">
                       <!-- form start -->
-                      <form id="form-ocupacion" name="form-ocupacion" method="POST" autocomplete="off">
+                      <form id="form-marca" name="form-marca" method="POST" autocomplete="off">
                         <div class="card-body">
                           <div class="row" id="cargando-1-fomulario">
                             <!-- id idunidad_medida -->
-                            <input type="hidden" name="idocupacion" id="idocupacion" />
+                            <input type="hidden" name="idmarca" id="idmarca" />
                             <!-- nombre_medida -->
                             <div class="col-lg-12 class_pading">
                               <div class="form-group">
-                                <label for="nombre">Nombre Ocupación</label>
-                                <input type="text" name="nombre_ocupacion" id="nombre_ocupacion" class="form-control" placeholder="Nombre de la Ocupación" />
+                                <label for="nombre">Nombre marca</label>
+                                <input type="text" name="nombre_marca" id="nombre_marca" class="form-control" placeholder="Nombre de la Marca" />
                               </div>
                             </div>
                           </div>
@@ -681,12 +532,12 @@
                           </div>
                         </div>
                         <!-- /.card-body -->
-                        <button type="submit" style="display: none;" id="submit-form-ocupacion">Submit</button>
+                        <button type="submit" style="display: none;" id="submit-form-marca">Submit</button>
                       </form>
                     </div>
                     <div class="modal-footer justify-content-between">
-                      <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="limpiar_ocupacion();">Close</button>
-                      <button type="submit" class="btn btn-success" id="guardar_registro_ocupacion">Guardar Cambios</button>
+                      <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="limpiar_marca();">Close</button>
+                      <button type="submit" class="btn btn-success" id="guardar_registro_marca">Guardar Cambios</button>
                     </div>
                   </div>
                 </div>
@@ -874,13 +725,13 @@
         <!-- sweetalert2 -->
         <script src="../plugins/sweetalert2/sweetalert2.all.min.js"></script>
 
-        <script type="text/javascript" src="scripts/bancos.js"></script>
+        <!-- <script type="text/javascript" src="scripts/bancos.js"></script> -->
         <script type="text/javascript" src="scripts/color.js"></script>
-        <script type="text/javascript" src="scripts/unidades_m.js"></script>
-        <script type="text/javascript" src="scripts/ocupacion.js"></script>
-        <script type="text/javascript" src="scripts/tipo.js"></script>
+        <script type="text/javascript" src="scripts/categoria.js"></script> 
+        <script type="text/javascript" src="scripts/marca.js"></script>
+        <!-- <script type="text/javascript" src="scripts/tipo.js"></script>
         <script type="text/javascript" src="scripts/cargo.js"></script>
-        <script type="text/javascript" src="scripts/categoria_af.js"></script>
+        <script type="text/javascript" src="scripts/categoria_af.js"></script> -->
 
         <script>
           $(function () {

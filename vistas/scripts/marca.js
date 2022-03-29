@@ -1,31 +1,28 @@
-var tabla_unidades_m;
+var tabla_marca;
 
 //Función que se ejecuta al inicio
 function init() {
-  listar_unidades_m();
+  listar_marca();
   $("#bloc_Recurso").addClass("menu-open");
 
   $("#mRecurso").addClass("active");
 
   //$("#lAllMateriales").addClass("active");
 
-
-  $("#guardar_registro_unidad_m").on("click", function (e) {
+  $("#guardar_registro_marca").on("click", function (e) {
     
-    $("#submit-form-unidad-m").submit();
+    $("#submit-form-marca").submit();
   });
 
   // Formato para telefono
   $("[data-mask]").inputmask();
 
-
 }
 //Función limpiar
-function limpiar_unidades_m() {
+function limpiar_marca() {
   //Mostramos los Materiales
-  $("#idunidad_medida").val("");
-  $("#nombre_medida").val(""); 
-  $("#abreviacion").val(""); 
+  $("#idmarca").val("");
+  $("#nombre_marca").val(""); 
 
   // Limpiamos las validaciones
   $(".form-control").removeClass('is-valid');
@@ -33,17 +30,17 @@ function limpiar_unidades_m() {
 }
 
 //Función Listar
-function listar_unidades_m() {
+function listar_marca() {
 
-  tabla_unidades_m=$('#tabla-unidades-m').dataTable({
+  tabla_marca=$('#tabla-marca').dataTable({
     "responsive": true,
     lengthMenu: [[5, 10, 25, 75, 100, 200, -1], [5, 10, 25, 75, 100, 200, "Todos"]],//mostramos el menú de registros a revisar
     "aProcessing": true,//Activamos el procesamiento del datatables
     "aServerSide": true,//Paginación y filtrado realizados por el servidor
     dom: '<Bl<f>rtip>',//Definimos los elementos del control de tabla
-    buttons: ['copyHtml5', 'excelHtml5','pdf'],
+    buttons: ['copyHtml5', 'excelHtml5', 'pdf'],
     "ajax":{
-        url: '../ajax/unidades_m.php?op=listar__unidades_m',
+        url: '../ajax/marca.php?op=listar_marca',
         type : "get",
         dataType : "json",						
         error: function(e){
@@ -81,12 +78,12 @@ function listar_unidades_m() {
 
 //Función para guardar o editar
 
-function guardaryeditar_unidades_m(e) {
+function guardaryeditar_marca(e) {
   // e.preventDefault(); //No se activará la acción predeterminada del evento
-  var formData = new FormData($("#form-unidad-m")[0]);
+  var formData = new FormData($("#form-marca")[0]);
  
   $.ajax({
-    url: "../ajax/unidades_m.php?op=guardaryeditar_unidades_m",
+    url: "../ajax/marca.php?op=guardaryeditar",
     type: "POST",
     data: formData,
     contentType: false,
@@ -98,11 +95,11 @@ function guardaryeditar_unidades_m(e) {
 
 				toastr.success('Registrado correctamente')				 
 
-	      tabla_unidades_m.ajax.reload();
+	      tabla_marca.ajax.reload();
          
-				limpiar_unidades_m();
+				limpiar_marca();
 
-        $("#modal-agregar-unidad-m").modal("hide");
+        $("#modal-agregar-marca").modal("hide");
 
 			}else{
 
@@ -112,29 +109,28 @@ function guardaryeditar_unidades_m(e) {
   });
 }
 
-function mostrar_unidades_m(idunidad_medida) {
-  limpiar_unidades_m();
+function mostrar_marca(idmarca) {
+  limpiar_marca(); //console.log(idmarca);
 
-  $("#modal-agregar-unidad-m").modal("show")
+  $("#modal-agregar-marca").modal("show")
 
-  $.post("../ajax/unidades_m.php?op=mostrar_unidades_m", { idunidad_medida: idunidad_medida }, function (data, status) {
+  $.post("../ajax/marca.php?op=mostrar_marca", { idmarca: idmarca }, function (data, status) {
 
     data = JSON.parse(data);  console.log(data);  
 
     $("#cargando-1-fomulario").show();
     $("#cargando-2-fomulario").hide();
 
-    $("#idunidad_medida").val(data.idunidad_medida);
-    $("#nombre_medida").val(data.nombre_medida); 
-    $("#abreviacion").val(data.abreviacion); 
+    $("#idmarca").val(data.idmarca);
+    $("#nombre_marca").val(data.nombre);
   });
 }
 
 //Función para desactivar registros
-function desactivar_unidades_m(idunidad_medida) {
+function desactivar_marca(idmarca) {
   Swal.fire({
     title: "¿Está Seguro de  Desactivar el registro?",
-    text: "Unidad de medida",
+    text: "Ocupación",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#28a745",
@@ -142,21 +138,21 @@ function desactivar_unidades_m(idunidad_medida) {
     confirmButtonText: "Si, desactivar!",
   }).then((result) => {
     if (result.isConfirmed) {
-      $.post("../ajax/unidades_m.php?op=desactivar_unidades_m", { idunidad_medida: idunidad_medida }, function (e) {
+      $.post("../ajax/marca.php?op=desactivar_marca", { idmarca: idmarca }, function (e) {
 
         Swal.fire("Desactivado!", "Tu registro ha sido desactivado.", "success");
     
-        tabla_unidades_m.ajax.reload();
+        tabla_marca.ajax.reload();
       });      
     }
   });   
 }
 
 //Función para activar registros
-function activar_unidades_m(idunidad_medida) {
+function activar_marca(idmarca) {
   Swal.fire({
     title: "¿Está Seguro de  Activar el registro?",
-    text: "Unidad de medida",
+    text: "Ocupación",
     icon: "warning",
     showCancelButton: true,
     confirmButtonColor: "#28a745",
@@ -164,11 +160,11 @@ function activar_unidades_m(idunidad_medida) {
     confirmButtonText: "Si, activar!",
   }).then((result) => {
     if (result.isConfirmed) {
-      $.post("../ajax/unidades_m.php?op=activar_unidades_m", { idunidad_medida: idunidad_medida }, function (e) {
+      $.post("../ajax/marca.php?op=activar_marca", { idmarca: idmarca }, function (e) {
 
         Swal.fire("Activado!", "Tu registro ha sido activado.", "success");
 
-        tabla_unidades_m.ajax.reload();
+        tabla_marca.ajax.reload();
       });
       
     }
@@ -176,7 +172,7 @@ function activar_unidades_m(idunidad_medida) {
 }
 
 //Función para desactivar registros
-function eliminar_unidades_m(idunidad_medida) {
+function eliminar_marca(idmarca) {
   //----------------------------
  Swal.fire({
 
@@ -195,25 +191,25 @@ function eliminar_unidades_m(idunidad_medida) {
 
   if (result.isConfirmed) {
    //op=desactivar
-    $.post("../ajax/unidades_m.php?op=desactivar_unidades_m", { idunidad_medida: idunidad_medida }, function (e) {
+    $.post("../ajax/marca.php?op=desactivar_marca", { idmarca: idmarca }, function (e) {
 
       Swal.fire("Desactivado!", "Tu registro ha sido desactivado.", "success");
 
-      tabla_unidades_m.ajax.reload();
-    }); 
+      tabla_marca.ajax.reload();
+    });  
 
   }else if (result.isDenied) {
    //op=eliminar
-    $.post("../ajax/unidades_m.php?op=eliminar_unidades_m", { idunidad_medida: idunidad_medida }, function (e) {
+    $.post("../ajax/marca.php?op=eliminar_marca", { idmarca: idmarca }, function (e) {
 
       Swal.fire("Eliminado!", "Tu registro ha sido Eliminado.", "success");
 
-      tabla_unidades_m.ajax.reload();
+      tabla_marca.ajax.reload();
     }); 
 
   }
 
-});
+});   
 }
 
 init();
@@ -224,17 +220,17 @@ $(function () {
   $.validator.setDefaults({
 
     submitHandler: function (e) {
-        guardaryeditar_unidades_m(e);
+        guardaryeditar_marca(e);
       
     },
   });
 
-  $("#form-unidad-m").validate({
+  $("#form-marca").validate({
     rules: {
-      nombre_medida: { required: true }      // terms: { required: true },
+      nombre_marca: { required: true }      // terms: { required: true },
     },
     messages: {
-      nombre_medida: {
+      nombre_marca: {
         required: "Por favor ingrese nombre.", 
       },
 

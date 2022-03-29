@@ -120,7 +120,7 @@ function mostrar(idcolor) {
     $("#cargando-2-fomulario").hide();
 
     $("#idcolor").val(data.idcolor);
-    $("#nombre_color").val(data.nombre_color); 
+    $("#nombre_color").val(data.nombre); 
   });
 }
 
@@ -168,7 +168,7 @@ function activar(idcolor) {
     }
   });      
 }
-//Función para desactivar registros
+//Función para eliminar registros
 function eliminar_color(idcolor) {
    //----------------------------
  Swal.fire({
