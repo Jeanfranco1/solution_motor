@@ -117,26 +117,9 @@ class Materiales
 
   //Implementar un método para listar los registros
   public function listar() {
-    $sql = "SELECT
-			p.idproducto as idproducto,
-			p.idunidad_medida as idunidad_medida,
-			p.idcolor as idcolor,
-			p.nombre as nombre,
-			p.marca as marca,
-			p.descripcion as descripcion,
-			p.imagen as imagen,
-			p.estado_igv as estado_igv,
-			p.precio_unitario as precio_unitario,
-			p.precio_igv as precio_igv,
-			p.precio_sin_igv as precio_sin_igv,
-			p.precio_total as precio_total,
-			p.ficha_tecnica as ficha_tecnica,
-			p.estado as estado,
-			c.nombre_color as nombre_color,
-			um.nombre_medida as nombre_medida
-			FROM producto p, unidad_medida as um, color as c  
-			WHERE um.idunidad_medida=p.idunidad_medida  AND c.idcolor=p.idcolor AND idcategoria_insumos_af = '1' 
-			AND p.estado='1' AND p.estado_delete='1' ORDER BY p.nombre ASC";
+    $sql = "SELECT p.idproducto, p.idmarca, p.idcategoria, p.idcolor, p.nombre, p.modelo, p.serie, p.unidad_medida, p.precio_compra, p.porcentaje_utilidad, p.precio_venta, p.stock, p.descripcion,p.imagen, p.estado, m.nombre as marca, c.nombre as categoria 
+    FROM producto as p, marca as m, categoria as c
+    WHERE p.idproducto=m.idmarca AND p.idproducto=c.idcategoria AND p.estado=1 AND p.estado_delete=1 ORDER BY p.nombre ASC;";
     return ejecutarConsulta($sql);
   }
   

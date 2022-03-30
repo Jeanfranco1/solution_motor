@@ -102,7 +102,7 @@ function limpiar() {
 
 //Función Listar
 function listar() {
-  tabla = $("#tabla-materiales")
+  tabla = $("#tabla-productos")
     .dataTable({
       responsive: true,
       lengthMenu: [5, 10, 25, 75, 100], //mostramos el menú de registros a revisar

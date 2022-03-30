@@ -62,35 +62,35 @@
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                          <table id="tabla-materiales" class="table table-bordered table-striped display" style="width: 100% !important;">
+                          <table id="tabla-productos" class="table table-bordered table-striped display" style="width: 100% !important;">
                             <thead>
                               <tr>
                                 <th class="text-center">#</th>
                                 <th class="">Acciones</th>
-                                <th>Nombre</th>
-                                <th>Unidad</th>
+                                <th class="text-nowrap">Nombre</th>
                                 <th>Marca</th>
-                                <th data-toggle="tooltip" data-original-title="Precio Unitario">Precio ingresado</th>
-                                <th data-toggle="tooltip" data-original-title="Sub total">Sub total</th>
-                                <th data-toggle="tooltip" data-original-title="IGV">IGV</th>
-                                <th data-toggle="tooltip" data-original-title="Precio real">Precio real</th>
-                                <th>Ficha técnica</th>
+                                <th>Modelo/Serie</th>
+                                <th>Categoría</th>
+                                <th>Stock</th>
+                                <th data-toggle="tooltip" data-original-title="Precio compra">Precio compra</th>
+                                <th data-toggle="tooltip" data-original-title="porcentaje utilidad">P.U %</th>
+                                <th data-toggle="tooltip" data-original-title="Precio Venta">Precio Venta</th>
                                 <th>Estado</th>
                               </tr>
                             </thead>
                             <tbody></tbody>
                             <tfoot>
                               <tr>
-                                <th class="text-center">#</th>
+                              <th class="text-center">#</th>
                                 <th class="">Acciones</th>
                                 <th>Nombre</th>
-                                <th>Unidad</th>
                                 <th>Marca</th>
-                                <th data-toggle="tooltip" data-original-title="Precio Ingresado">Precio ingresado</th>
-                                <th data-toggle="tooltip" data-original-title="Sub total">Sub total</th>
-                                <th data-toggle="tooltip" data-original-title="IGV">IGV</th>
-                                <th data-toggle="tooltip" data-original-title="Precio real">Precio real</th>
-                                <th>Ficha técnica</th>
+                                <th>Modelo/Serie</th>
+                                <th>Categoría</th>
+                                <th>Stock</th>
+                                <th data-toggle="tooltip" data-original-title="Precio compra">Precio compra</th>
+                                <th data-toggle="tooltip" data-original-title="porcentaje utilidad">P.U %</th>
+                                <th data-toggle="tooltip" data-original-title="Precio Venta">Precio Venta</th>
                                 <th>Estado</th>
                               </tr>
                             </tfoot>

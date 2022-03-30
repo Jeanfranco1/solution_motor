@@ -125,11 +125,7 @@
           while ($reg = $rspta->fetch_object()) {
 
             if (empty($reg->imagen)) { $imagen = 'img_material_defect.jpg';  } else { $imagen = $reg->imagen;   }
-
-            empty($reg->ficha_tecnica) ? ($ficha_tecnica = '<center><i class="far fa-file-pdf fa-2x text-gray-50"></i></center>') : ($ficha_tecnica = '<center><a target="_blank" href="../dist/docs/material/ficha_tecnica/' . $reg->ficha_tecnica . '"><i class="far fa-file-pdf fa-2x text-danger" ></i></a></center>');
-            
-            empty($reg->precio_igv) ? ($monto_igv = '-') : ($monto_igv = $reg->precio_igv);
-            
+           
             $data[] = [
               "0"=>$cont++,
               "1" => $reg->estado ? '<button class="btn btn-warning btn-sm" onclick="mostrar(' . $reg->idproducto . ')"><i class="fas fa-pencil-alt"></i></button>' .
@@ -139,15 +135,15 @@
                 '<div class="user-block">
                   <img class="profile-user-img img-responsive img-circle" src="../dist/docs/material/img_perfil/' . $imagen . '" alt="user image" onerror="'.$imagen_error.'">
                   <span class="username"><p style="margin-bottom: 0px !important;">' . $reg->nombre . '</p></span>
-                  <span class="description">' . substr($reg->descripcion, 0, 30) . '...</span>
+                  <span class="description">' . substr($reg->marca, 0, 30) . '...</span>
                 </div>',
-              "3" => $reg->nombre_medida,
-              "4" => $reg->marca,
-              "5" =>'S/. '. number_format($reg->precio_unitario, 2, '.', ','),
-              "6" =>'S/. '.number_format($reg->precio_sin_igv, 2, '.', ','),
-              "7" =>'S/. '. number_format($monto_igv, 2, '.', ','),
-              "8" =>'S/. '.number_format($reg->precio_total, 2, '.', ','),
-              "9" => $ficha_tecnica,
+              "3" => $reg->marca,
+              "4" => $reg->modelo.'/'.$reg->serie,
+              "5" => $reg->categoria,
+              "6" => $reg->stock,
+              "7" =>'S/. '. number_format($reg->precio_compra, 2, '.', ','),
+              "8" => $reg->porcentaje_utilidad.' %',
+              "9" =>'S/. '. number_format($reg->precio_venta, 2, '.', ','),
               "10" => $reg->estado ? '<span class="text-center badge badge-success">Activado</span>' : '<span class="text-center badge badge-danger">Desactivado</span>',
             ];
           }
