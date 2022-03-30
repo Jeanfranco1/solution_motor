@@ -55,7 +55,7 @@ Class Color
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT * FROM color WHERE idcolor>'1' AND estado=1  AND estado_delete=1 ORDER BY nombre ASC";
+		$sql="SELECT * FROM color WHERE idcolor>'1'  AND estado_delete=1 ORDER BY nombre ASC";
 		return ejecutarConsulta($sql);		
 	}
 	//Implementar un método para listar los registros y mostrar en el select

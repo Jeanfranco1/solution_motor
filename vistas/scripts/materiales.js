@@ -9,18 +9,31 @@ function init() {
 
   $("#lAllMateriales").addClass("active");
 
-  $("#guardar_registro").on("click", function (e) { $("#submit-form-materiales").submit(); });
+  $("#guardar_registro").on("click", function (e) { $("#submit-form-productos").submit(); });
 
   //Mostramos colores
   $.post("../ajax/color.php?op=selectcolor", function (r) { $("#color").html(r); });
-
-  //Mostramos colores
-  $.post("../ajax/unidades_m.php?op=selectUnidad", function (r) { $("#unid_medida").html(r); });
+   //Mostramos marcas
+  $.post("../ajax/marca.php?op=selectmarca", function (r) { $("#marca").html(r); });
+   //Mostramos categorias
+   $.post("../ajax/categoria.php?op=selectcategoria", function (r) { $("#categoria").html(r); });
 
   //Initialize Select2 color
   $("#color").select2({
     theme: "bootstrap4",
     placeholder: "Seleccinar color",
+    allowClear: true,
+  });
+  //Initialize Select2 marca
+  $("#marca").select2({
+    theme: "bootstrap4",
+    placeholder: "Seleccinar marca",
+    allowClear: true,
+  });
+  //Initialize Select2 categoria
+  $("#categoria").select2({
+    theme: "bootstrap4",
+    placeholder: "Seleccinar categoria",
     allowClear: true,
   });
   
@@ -33,27 +46,20 @@ function init() {
 
   //============unidad================
   $("#unid_medida").val("null").trigger("change");
-
+  //============marca================
+  $("#marca").val("null").trigger("change");
+  //============marca================
+  $("#categoria").val("null").trigger("change");
   // Formato para telefono
   $("[data-mask]").inputmask();
 }
 
 // abrimos el navegador de archivos
-// iamgend e perfil
-$("#imagen1_i").click(function () { $("#imagen1").trigger("click"); });
-$("#imagen1").change(function (e) { addImage(e, $("#imagen1").attr("id")); });
 
 //ficha tecnica
 $("#doc2_i").click(function() {  $('#doc2').trigger('click'); });
 $("#doc2").change(function(e) {  addDocs(e,$("#doc2").attr("id")) });
 
-function imagen1_eliminar() {
-  $("#imagen1").val("");
-
-  $("#imagen1_i").attr("src", "../dist/img/default/img_defecto_materiales.png");
-
-  $("#imagen1_nombre").html("");
-}
 
 // Eliminamos el doc 2
 function doc2_eliminar() {
@@ -69,36 +75,26 @@ function doc2_eliminar() {
 function limpiar() {
   //Mostramos los Materiales
   $("#idproducto").val("");
-  $("#nombre_material").val("");
+  $("#nombre_producto").val("");
+  $("#categoria").val("null").trigger("change");
+  $("#marca").val("null").trigger("change");
   $("#modelo").val("");
   $("#serie").val("");
-  $("#marca").val("");
-  $("#descripcion_material").val("");
+  $("#unid_medida").val("1").trigger("change");
+  $("#color").val("1").trigger("change");
+  $("#stock").val("");
+  $("#precio_compra").val("");
+  $("#porcentaje").val("");
+  $("#precio_venta").val("");
+  $("#descripcion").val("");
 
-  $("#precio_unitario").val("");
-  $("#estado_igv").val("");
-  $("#monto_igv").val("");
-  $("#precio_real").val("");
-  $(".precio_real").val("");
-  $(".total").val("");
-  $(".monto_igv").val("");
-  $("#unid_medida").val("");
-  $("#total_precio").val("");
-
-  $("#imagen1_i").attr("src", "../dist/img/default/img_defecto_materiales.png");
-  $("#imagen1").val("");
-  $("#imagen1_actual").val("");
-  $("#imagen1_nombre").html("");
+  
 
   $("#doc_old_2").val("");
   $("#doc2").val("");  
   $('#doc2_ver').html(`<img src="../dist/svg/pdf_trasnparent.svg" alt="" width="50%" >`);
   $('#doc2_nombre').html("");
 
-  $("#unid_medida").val("null").trigger("change");
-  $("#color").val("1").trigger("change");
-  $("#my-switch_igv").prop("checked", true);
-  $("#estado_igv").val("1");
 
   $(".form-control").removeClass("is-valid");
   $(".is-invalid").removeClass("error is-invalid");
@@ -171,39 +167,11 @@ function listar() {
     })
     .DataTable();
 }
-//ver ficha tecnica
-function modal_ficha_tec(ficha_tecnica) {
-  var ficha_tec = ficha_tecnica;
-  console.log(ficha_tec);
-  var extencion = ficha_tec.substr(ficha_tec.length - 3); // => "1"
-  //console.log(extencion);
-  $("#ver_fact_pdf").html("");
-  $("#img-factura").attr("src", "");
-  $("#modal-ver-ficha_tec").modal("show");
-
-  if (extencion == "jpeg" || extencion == "jpg" || extencion == "png" || extencion == "webp") {
-    $("#ver_fact_pdf").hide();
-    $("#img-factura").show();
-    $("#img-factura").attr("src", "../dist/ficha_tecnica_materiales/" + ficha_tec);
-
-    $("#iddescargar").attr("href", "../dist/ficha_tecnica_materiales/" + ficha_tec);
-  } else {
-    $("#img-factura").hide();
-
-    $("#ver_fact_pdf").show();
-
-    $("#ver_fact_pdf").html('<iframe src="../dist/ficha_tecnica_materiales/' + ficha_tec + '" frameborder="0" scrolling="no" width="100%" height="350"></iframe>');
-
-    $("#iddescargar").attr("href", "../dist/ficha_tecnica_materiales/" + ficha_tec);
-  }
-
-  // $(".tooltip").hide();
-}
 //Función para guardar o editar
 
 function guardaryeditar(e) {
   // e.preventDefault(); //No se activará la acción predeterminada del evento
-  var formData = new FormData($("#form-materiales")[0]);
+  var formData = new FormData($("#form-productos")[0]);
 
   $.ajax({
     url: "../ajax/materiales.php?op=guardaryeditar",
@@ -251,7 +219,8 @@ function mostrar(idproducto) {
     $("#nombre_material").val(data.nombre);
     $("#modelo").val(data.modelo);
     $("#serie").val(data.serie);
-    $("#marca").val(data.marca);            
+    $("#marca").val(data.idmarca).trigger("change");  
+    $("#categoria").val(data.idcategoria).trigger("change");           
     $("#descripcion_material").val(data.descripcion);
 
     $("#precio_unitario").val(parseFloat(data.precio_unitario).toFixed(2));
@@ -266,18 +235,7 @@ function mostrar(idproducto) {
      
     $("#unid_medida").val(data.idunidad_medida).trigger("change");
     $("#color").val(data.idcolor).trigger("change");
-
-    if (data.estado_igv == "1") {
-      $("#my-switch_igv").prop("checked", true);
-    } else {
-      $("#my-switch_igv").prop("checked", false);
-    }
-     
-    if (data.imagen != "") {
-      $("#imagen1_i").attr("src", "../dist/docs/material/img_perfil/" + data.imagen);
-
-      $("#imagen1_actual").val(data.imagen);
-    }
+    
 
     // FICHA TECNICA
     if (data.ficha_tecnica == "" || data.ficha_tecnica == null  ) {
@@ -397,96 +355,40 @@ function eliminar(idproducto) {
 });
 }
 
-function precio_con_igv() {
-  var precio_total = 0;
-  var mont_igv = 0.0;
+function cal_precio_venta() {
+ var precio_venta = 0;
+ var porcentaje = 0;
+ var precio_compra = 0;
 
-  var precio_base = 0;
-  var igv = 0;
-  var precio_re = 0;
+ if ($("#precio_compra").val()=="" && $("#precio_compra").val()==null && $("#porcentaje").val()=="" && $("#porcentaje").val()==null) {
+ precio_venta = 0.00; 
+ $("#precio_venta").val(precio_venta.toFixed(2));
 
-  //var precio_r=0;
-  precio_total = $("#precio_unitario").val();
-  $("#monto_igv").val(mont_igv.toFixed(2));
-  $("#precio_real").val(precio_total);
+ } else {
+  
+  porcentaje = $("#porcentaje").val();
+  
+  precio_compra = $("#precio_compra").val();
 
-  if ($("#my-switch_igv").is(":checked")) {
-    precio_base = precio_total / 1.18;
-    igv = precio_total - precio_base;
-    precio_re = parseFloat(precio_total) - igv;
+  if (porcentaje!="" && precio_compra!="") {
+    
+    precio_venta=parseFloat((precio_compra*(porcentaje/100)))+parseFloat(precio_compra);
+    console.log();
+    $("#precio_venta").val(precio_venta.toFixed(2));
 
-    $("#monto_igv").val(redondearExp(igv, 4));
-    $("#precio_real").val(redondearExp(precio_re, 4));
-
-    $(".monto_igv").val(redondearExp(igv, 2));
-    $(".precio_real").val(redondearExp(precio_re, 2));
-
-    $(".total").val(redondearExp(precio_re, 2) + redondearExp(igv, 2));
-    $("#total_precio").val(redondearExp(precio_re, 4) + redondearExp(igv, 4));
-
-    $("#estado_igv").val("1");
   } else {
-    precio_base = precio_total * 1.18;
-    console.log("precio_base precio_con_igv " + precio_base);
-    igv = precio_base - precio_total;
-    precio_re = parseFloat(precio_total) - igv;
+    
+    precio_venta = 0.00; 
 
-    $(".monto_igv").val(redondearExp(igv, 2));
-    $("#monto_igv").val(redondearExp(igv, 4));
+    $("#precio_venta").val(precio_venta.toFixed(2));
 
-    $(".precio_real").val(redondearExp(precio_total, 2));
-    $("#precio_real").val(redondearExp(precio_total, 4));
-
-    $(".total").val(redondearExp(precio_base, 2));
-    $("#total_precio").val(redondearExp(precio_base, 4));
-
-    $("#estado_igv").val("0");
   }
+
+ }
+ 
+precio_total = $("#precio_unitario").val();
 }
 
-$("#my-switch_igv").on("click ", function (e) {
-  var precio_total = 0;
-  var precio_base = 0;
-  var igv = 0;
-  var precio_re = 0;
-  precio_total = $("#precio_unitario").val();
-
-  $("#monto_igv").val("");
-  $("#precio_real").val("");
-
-  if ($("#my-switch_igv").is(":checked")) {
-    precio_base = precio_total / 1.18;
-    igv = precio_total - precio_base;
-    precio_re = parseFloat(precio_total) - igv;
-
-    $("#monto_igv").val(redondearExp(igv, 4));
-    $("#precio_real").val(redondearExp(precio_re, 4));
-
-    $(".monto_igv").val(redondearExp(igv, 2));
-    $(".precio_real").val(redondearExp(precio_re, 2));
-
-    $(".total").val(redondearExp(precio_base, 2) + redondearExp(igv, 2));
-    $("#total_precio").val(redondearExp(precio_re, 4) + redondearExp(igv, 4));
-
-    $("#estado_igv").val("1");
-  } else {
-    precio_base = precio_total * 1.18;
-    console.log(precio_base);
-    igv = precio_base - precio_total;
-    precio_re = parseFloat(precio_total) + igv;
-
-    $(".monto_igv").val(redondearExp(igv, 2));
-    $("#monto_igv").val(redondearExp(igv, 4));
-
-    $(".precio_real").val(redondearExp(precio_total, 2));
-    $("#precio_real").val(redondearExp(precio_total, 4));
-
-    $(".total").val(redondearExp(precio_re, 2));
-    $("#total_precio").val(redondearExp(precio_re, 4));
-
-    $("#estado_igv").val("0");
-  }
-});
 
 init();
 
@@ -497,23 +399,52 @@ $(function () {
     },
   });
 
-  $("#form-materiales").validate({
+  $("#form-productos").validate({
     rules: {
-      nombre_material: { required: true },
-      descripcion_material: { minlength: 1 },
-      unid_medida: { required: true },
+      nombre_producto: { required: true },
+      categoria: {required: true},
+      marca: { required: true}, 
       color: { required: true },
+      unid_medida: { required: true },
+      modelo: {required: true},
+      precio_compra: {required: true},
+      porcentaje: {required: true },
+      stock: {required: true},
+      descripcion: { minlength: 1 },
+      
     },
     messages: {
-      nombre_material: {
+      nombre_producto: {
         required: "Por favor ingrese nombre",
       },
-      unid_medida: {
-        required: "Seleccione unidad",
+      categoria: {
+        required: "Seleccione categoria",
+      },
+      marca: {
+        required: "Selecione un marca",
       },
       color: {
         required: "Selecione un color",
       },
+      unid_medida: {
+        required: "Selecione unidad de medida",
+      },
+      modelo: {
+        required: "Selecione un modelo",
+      },
+      precio_compra: {
+        required: "Ingresar precio de compra",
+      },
+      porcentaje: {
+        required: "Selecione un porcentaje",
+      },
+      stock: {
+        required: "ingrese stock",
+      },
+      descripcion: {
+        required: "Selecione un descripcion",
+      },
+
     },
 
     errorElement: "span",

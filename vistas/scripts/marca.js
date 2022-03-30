@@ -110,7 +110,8 @@ function guardaryeditar_marca(e) {
 }
 
 function mostrar_marca(idmarca) {
-  limpiar_marca(); //console.log(idmarca);
+  limpiar_marca(); 
+  console.log(idmarca);
 
   $("#modal-agregar-marca").modal("show")
 

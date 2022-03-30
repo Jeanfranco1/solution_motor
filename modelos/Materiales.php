@@ -10,19 +10,19 @@ class Materiales
   }
 
   //Implementamos un método para insertar registros
-  public function insertar($idcategoria, $nombre, $modelo, $serie, $marca, $precio_unitario, $descripcion, $imagen1, $ficha_tecnica, $estado_igv, $monto_igv, $precio_real, $unid_medida, $color, $total_precio)
+  public function insertar($nombre_producto, $categoria, $marca, $modelo, $serie, $unid_medida, $color, $stock, $precio_compra, $porcentaje, $precio_venta, $descripcion, $ficha_tecnica)
   {
     //var_dump($idproducto,$idproveedor);die();
-    $sql = "INSERT INTO producto (idcategoria_insumos_af, nombre, modelo, serie, marca, precio_unitario, descripcion, imagen, ficha_tecnica, estado_igv, precio_igv, precio_sin_igv,idunidad_medida,idcolor,precio_total) 
-		VALUES ('$idcategoria','$nombre', '$modelo', '$serie', '$marca','$precio_unitario','$descripcion','$imagen1','$ficha_tecnica','$estado_igv','$monto_igv','$precio_real','$unid_medida','$color','$total_precio')";
+    $sql = "INSERT INTO producto (nombre, idcategoria, idmarca, modelo, serie, unidad_medida, idcolor, stock, precio_compra, porcentaje_utilidad, precio_venta, descripcion, imagen) 
+		VALUES ('$nombre_producto', '$categoria', '$marca', '$modelo', '$serie', '$unid_medida', '$color', '$stock', '$precio_compra', '$porcentaje', '$precio_venta', '$descripcion', '$ficha_tecnica')";
     return ejecutarConsulta($sql);
   }
 
   //Implementamos un método para editar registros
-  public function editar($idproducto, $idcategoria, $nombre, $modelo, $serie, $marca, $precio_unitario, $descripcion, $imagen1, $ficha_tecnica, $estado_igv, $monto_igv, $precio_real, $unid_medida, $color, $total_precio)
+  public function editar($idproducto, $nombre_producto, $categoria, $marca, $modelo, $serie, $unid_medida, $color, $stock, $precio_compra, $porcentaje, $precio_venta, $descripcion, $ficha_tecnica)
   {
     //var_dump($idproducto,$nombre,$marca,$precio_unitario,$descripcion,$imagen1,$ficha_tecnica,$estado_igv,$monto_igv,$precio_real,$unid_medida,$total_precio);die();
-    $sql = "UPDATE producto SET 
+    /*$sql = "UPDATE producto SET 
 		idcategoria_insumos_af = '$idcategoria',
 		nombre='$nombre', 
     modelo = '$modelo', 
@@ -39,7 +39,7 @@ class Materiales
 		idcolor='$color',
 		precio_total='$total_precio'
 		WHERE idproducto='$idproducto'";
-    return ejecutarConsulta($sql);
+    return ejecutarConsulta($sql);*/
   }
 
   //Implementamos un método para desactivar categorías

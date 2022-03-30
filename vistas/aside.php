@@ -86,7 +86,7 @@
               <p>
                 Recursos
                 <i class="fas fa-angle-left right"></i>
-                <span class="badge badge-info right">6</span>
+                <span class="badge badge-info right">4</span>
               </p>
             </a>
             <ul class="nav nav-treeview ">
@@ -94,46 +94,25 @@
               <li class="nav-item ">
                 <a href="all_trabajador.php" class="nav-link" id="lAllTrabajador">
                   <i class="nav-icon fas fa-users"></i>
-                  <p>All-Trabajador</p>
+                  <p>Trabajador</p>
                 </a>
               </li>
               <!-- Proveedores de la empresa -->
               <li class="nav-item ">
                 <a href="all_proveedor.php" class="nav-link" id="lAllProveedor">
                   <i class="nav-icon fas fa-truck"></i>
-                  <p>All-Proveedor</p>
+                  <p>Proveedor</p>
                 </a>
               </li>  
-              <!-- Maquinas de la empresa -->
-              <li class="nav-item ">
-                <a href="all_maquinas.php" class="nav-link" id="lAllMaquinas">
-                  <i class="nav-icon fas fa-tractor"></i>
-                  <p>Máquinas-Equipos</p>
-                </a>
-              </li>
-              <!-- Materiales para la empresa -->
+              <!-- productos para la empresa -->
               <li class="nav-item ">
                 <a href="materiales.php" class="nav-link" id="lAllMateriales">
                   
                 <img src="../dist/svg/palana-ico.svg" class="nav-icon" alt="" style="width: 21px !important;" >
-                  <p>Insumos</p>
+                  <p>Producto</p>
                 </a>
               </li>
-              <!-- Activos fijos -->
-              <li class="nav-item ">
-                <a href="activos_fijos.php" class="nav-link" id="lActivosfijos">
-                <i class="nav-icon fas fa-truck-pickup"></i>
-                  <p>Activos fijos</p>
-                </a>
-              </li>
-              <!-- Calendario de la empresa -->
-              <li class="nav-item ">
-                <a href="all_calendario.php" class="nav-link" id="lAllCalendario">
-                <i class="nav-icon far fa-calendar-alt"></i>
-                  <p>All-Calendario</p>
-                </a>
-              </li>
-              <!-- Datos Generales Bancos y color -->
+              <!-- Datos Generales marca y color -->
               <li class="nav-item ">
                 <a href="otros.php" class="nav-link" id="lBancoColor">
                   <i class="nav-icon fas fa-coins"></i>

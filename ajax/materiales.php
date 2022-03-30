@@ -17,47 +17,24 @@
       $materiales = new Materiales();
 
       $idproducto = isset($_POST["idproducto"]) ? limpiarCadena($_POST["idproducto"]) : "";
-      $idcategoria = isset($_POST["idcategoria_insumos_af"]) ? limpiarCadena($_POST["idcategoria_insumos_af"]) : "";
-
-      $nombre = isset($_POST["nombre_material"]) ? encodeCadenaHtml($_POST["nombre_material"] ) : "";
-      $modelo = isset($_POST["modelo"]) ? encodeCadenaHtml($_POST["modelo"] ) : "";
+      $nombre_producto = isset($_POST["nombre_producto"]) ? limpiarCadena($_POST["nombre_producto"]) : "";
+      $categoria = isset($_POST["categoria"]) ? encodeCadenaHtml($_POST["categoria"] ) : "";
+      $marca = isset($_POST["marca"]) ? encodeCadenaHtml($_POST["marca"] ) : "";
+      $modelo = isset($_POST["modelo"]) ? encodeCadenaHtml($_POST["modelo"]) : "";
       $serie = isset($_POST["serie"]) ? encodeCadenaHtml($_POST["serie"] ) : "";
-      $marca = isset($_POST["marca"]) ? encodeCadenaHtml($_POST["marca"]) : "";
-      $precio_unitario = isset($_POST["precio_unitario"]) ? limpiarCadena($_POST["precio_unitario"]) : "";
-      $descripcion = isset($_POST["descripcion_material"]) ? encodeCadenaHtml($_POST["descripcion_material"]) : "";      
-
-      $estado_igv = isset($_POST["estado_igv"]) ? limpiarCadena($_POST["estado_igv"]) : "";
-      $monto_igv = isset($_POST["monto_igv"]) ? limpiarCadena($_POST["monto_igv"]) : "";
-      $precio_real = isset($_POST["precio_real"]) ? limpiarCadena($_POST["precio_real"]) : "";
-      
       $unid_medida = isset($_POST["unid_medida"]) ? limpiarCadena($_POST["unid_medida"]) : "";
       $color = isset($_POST["color"]) ? limpiarCadena($_POST["color"]) : "";
-      $total_precio = isset($_POST["total_precio"]) ? limpiarCadena($_POST["total_precio"]) : "";
-
-      $imagen1 = isset($_POST["imagen1"]) ? limpiarCadena($_POST["imagen1"]) : "";
+      $stock = isset($_POST["stock"]) ? limpiarCadena($_POST["stock"]) : "";
+      $precio_compra = isset($_POST["precio_compra"]) ? limpiarCadena($_POST["precio_compra"]) : "";
+      $porcentaje = isset($_POST["porcentaje"]) ? limpiarCadena($_POST["porcentaje"]) : "";
+      $precio_venta = isset($_POST["precio_venta"]) ? limpiarCadena($_POST["precio_venta"]) : "";
+      $descripcion = isset($_POST["descripcion_material"]) ? encodeCadenaHtml($_POST["descripcion_material"]) : "";      
       $imagen_ficha = isset($_POST["doc2"]) ? limpiarCadena($_POST["doc2"]) : ""; 
 
       switch ($_GET["op"]) {
 
         case 'guardaryeditar':
-          // imgen
-          if (!file_exists($_FILES['imagen1']['tmp_name']) || !is_uploaded_file($_FILES['imagen1']['tmp_name'])) {
-
-            $imagen1 = $_POST["imagen1_actual"];
-
-            $flat_img1 = false;
-
-          } else {
-
-            $ext1 = explode(".", $_FILES["imagen1"]["name"]);
-
-            $flat_img1 = true;
-
-            $imagen1 = rand(0, 20) . round(microtime(true)) . rand(21, 41) . '.' . end($ext1);
-
-            move_uploaded_file($_FILES["imagen1"]["tmp_name"], "../dist/docs/material/img_perfil/" . $imagen1);
-          }
-
+        
           // ficha técnica
           if (!file_exists($_FILES['doc2']['tmp_name']) || !is_uploaded_file($_FILES['doc2']['tmp_name'])) {
 
@@ -78,7 +55,7 @@
 
           if (empty($idproducto)) {
             
-            $rspta = $materiales->insertar($idcategoria, $nombre, $modelo, $serie, $marca, $precio_unitario, $descripcion, $imagen1, $ficha_tecnica, $estado_igv, $monto_igv, $precio_real, $unid_medida, $color, $total_precio);
+            $rspta = $materiales->insertar($nombre_producto, $categoria, $marca, $modelo, $serie, $unid_medida, $color, $stock, $precio_compra, $porcentaje, $precio_venta, $descripcion, $ficha_tecnica);
             
             echo $rspta ? "ok" : "No se pudieron registrar todos los datos del proveedor";
 
@@ -97,7 +74,7 @@
               }
             }
              
-            $rspta = $materiales->editar($idproducto, $idcategoria, $nombre, $modelo, $serie, $marca, $precio_unitario, $descripcion, $imagen1, $ficha_tecnica, $estado_igv, $monto_igv, $precio_real, $unid_medida, $color, $total_precio);
+            $rspta = $materiales->editar($idproducto, $nombre_producto, $categoria, $marca, $modelo, $serie, $unid_medida, $color, $stock, $precio_compra, $porcentaje, $precio_venta, $descripcion, $ficha_tecnica);
             
             echo $rspta ? "ok" : "Trabador no se pudo actualizar";
           }

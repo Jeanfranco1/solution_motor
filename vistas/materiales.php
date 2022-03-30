@@ -35,12 +35,12 @@
                 <div class="container-fluid">
                   <div class="row mb-2">
                     <div class="col-sm-6">
-                      <h1><img src="../dist/svg/palana-ico-negro.svg" class="nav-icon" alt="" style="width: 21px !important;"> Insumos</h1>
+                      <h1><img src="../dist/svg/palana-ico-negro.svg" class="nav-icon" alt="" style="width: 21px !important;"> Productos</h1>
                     </div>
                     <div class="col-sm-6">
                       <ol class="breadcrumb float-sm-right">
                         <li class="breadcrumb-item"><a href="#">Home</a></li>
-                        <li class="breadcrumb-item active">Insumos</li>
+                        <li class="breadcrumb-item active">Productos</li>
                       </ol>
                     </div>
                   </div>
@@ -57,7 +57,7 @@
                         <div class="card-header">
                           <h3 class="card-title">
                             <button type="button" class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-agregar-material" onclick="limpiar();"><i class="fas fa-plus-circle"></i> Agregar</button>
-                            Admnistra de manera eficiente de tus Insumos.
+                            Admnistra de manera eficiente los productos.
                           </h3>
                         </div>
                         <!-- /.card-header -->
@@ -119,21 +119,33 @@
 
                       <div class="modal-body">
                         <!-- form start -->
-                        <form id="form-materiales" name="form-materiales" method="POST">
+                        <form id="form-productos" name="form-productos" method="POST">
                           <div class="card-body">
                             <div class="row" id="cargando-1-fomulario">
-                              <!-- id proyecto -->
-                              <input type="hidden" name="idproyecto" id="idproyecto" />
-                              <!-- id proveedores -->
+                              <!-- id producto -->
                               <input type="hidden" name="idproducto" id="idproducto" />
-                              <!-- id categoria_insumos_af -->
-                              <input type="hidden" name="idcategoria_insumos_af" id="idcategoria_insumos_af" value="1"/>
-
                               <!-- Nombre -->
                               <div class="col-lg-12 class_pading">
                                 <div class="form-group">
-                                  <label for="nombre_material">Nombre</label>
-                                  <input type="text" name="nombre_material" class="form-control" id="nombre_material" placeholder="Nombre del Insumo." />
+                                  <label for="nombre_producto">Nombre</label>
+                                  <input type="text" name="nombre_producto" class="form-control" id="nombre_producto" placeholder="Nombre del Insumo." />
+                                </div>
+                              </div>
+
+                              <!--Categoria-->
+                              <div class="col-lg-6">
+                                <div class="form-group">
+                                  <label for="categoria">Categoria</label>
+                                  <select name="categoria" id="categoria" class="form-control select2" style="width: 100%;"></select> 
+                                  
+                                </div>
+                              </div>
+                              <!--Marca-->
+                              <div class="col-lg-6">
+                                <div class="form-group">
+                                  <label for="marca">Marca</label>
+                                  <select name="marca" id="marca" class="form-control select2" style="width: 100%;"></select> 
+                                  
                                 </div>
                               </div>
 
@@ -152,113 +164,73 @@
                                   <input class="form-control" type="text" id="serie" name="serie" placeholder="Serie." />
                                 </div>
                               </div>
-
-                              <!--Marca-->
-                              <div class="col-lg-6 class_pading">
+                                <!-- Unnidad  onchange="mostrar_igv(); ocultar_comprob();"-->
+                              <div class="col-lg-4" id="content-t-unidad">
                                 <div class="form-group">
-                                  <label for="marca">Marca</label>
-                                  <input type="text" name="marca" class="form-control" id="marca" placeholder="Marca" />
+                                  <label for="Unidad-medida">Unidad-medida</label>
+                                  <select name="unid_medida" id="unid_medida" class="form-control select2" style="width: 100%;"> 
+                                   <option value="1">Unidad</option>
+                                   <option value="2">Litros</option>
+                                   <option value="3">Kilo</option>
+                                  </select>
+                                  <!--<input type="hidden" name="unid_medida_old" id="unid_medida_old" />-->
+                                  
                                 </div>
                               </div>
+                              
 
                               <!-- Color -->
-                              <div class="col-lg-6">
+                              <div class="col-lg-4" >
                                 <div class="form-group">
                                   <label for="color">Color</label>
-                                  <select name="color" id="color" class="form-control select2" style="width: 100%;"> </select>
+                                  <select name="color" id="color" class="form-control select2" style="width: 100%;"></select>
                                   <!--<input type="hidden" name="color_old" id="color_old" />-->
                                 </div>
                               </div>
 
-                              <!-- Unnidad  onchange="mostrar_igv(); ocultar_comprob();"-->
-                              <div class="col-lg-6" id="content-t-unidad">
+                             <!--Stock-->
+                             <div class="col-lg-4 class_pading">
                                 <div class="form-group">
-                                  <label for="Unidad-medida">Unidad-medida</label>
-                                  <select name="unid_medida" id="unid_medida" class="form-control select2" style="width: 100%;"> </select>
-                                  <!--<input type="hidden" name="unid_medida_old" id="unid_medida_old" />-->
+                                  <label for="stock">Stock</label>
+                                  <input type="number" name="stock" id="stock" class="form-control total" placeholder="stock."/>
                                 </div>
                               </div>
 
                               <!--Precio U-->
                               <div class="col-lg-4 class_pading">
                                 <div class="form-group">
-                                  <label for="precio_unitario">Precio</label>
-                                  <input type="number" name="precio_unitario" class="form-control miimput" id="precio_unitario" placeholder="Precio Unitario." onchange="precio_con_igv();" onkeyup="precio_con_igv();" />
+                                  <label for="precio_compra">Precio Compra</label>
+                                  <input type="number" name="precio_compra" class="form-control miimput" id="precio_compra" placeholder="Precio Unitario." onchange="cal_precio_venta();" onkeyup="cal_precio_venta();" />
                                 </div>
                               </div>
 
-                              <!-- Rounded switch -->
-                              <div class="col-lg-2 class_pading">
-                                <div class="form-group">
-                                  <label for="" class="labelswitch">Sin o Con (Igv)</label>
-                                  <div id="switch_igv">
-                                    <div class="switch-holder myestilo-switch">
-                                      <div class="switch-toggle">
-                                        <input type="checkbox" id="my-switch_igv" checked />
-                                        <label for="my-switch_igv"></label>
-                                      </div>
-                                    </div>
-                                  </div>
-                                  <input type="hidden" name="estado_igv" id="estado_igv" />
-                                </div>
-                              </div>
 
-                              <!--Sub Total precio_real monto_igv total-->
+                              <!--Sub Total porcentaje monto_igv total-->
                               <div class="col-lg-4 class_pading">
                                 <div class="form-group">
-                                  <label for="precio_real">Sub Total</label>
-                                  <input type="number" class="form-control precio_real" placeholder="Precio real." onchange="precio_con_igv();" onkeyup="precio_con_igv();" readonly />
-                                  <input type="hidden" name="precio_real" class="form-control" id="precio_real" placeholder="Precio real." />
-                                </div>
-                              </div>
-
-                              <!--IGV-->
-                              <div class="col-lg-4 class_pading">
-                                <div class="form-group">
-                                  <label for="monto_igv">IGV</label>
-                                  <input type="number" class="form-control monto_igv" placeholder="Monto igv." onchange="precio_con_igv();" onkeyup="precio_con_igv();" readonly />
-                                  <input type="hidden" name="monto_igv" class="form-control" id="monto_igv" />
+                                  <label for="porcentaje">Porcentaje_utilidad %</label> 
+                                  <input type="number" name="porcentaje" class="form-control" id="porcentaje" placeholder="Ej. 30%" onchange="cal_precio_venta();" onkeyup="cal_precio_venta();"/>
                                 </div>
                               </div>
 
                               <!--Total-->
                               <div class="col-lg-4 class_pading">
                                 <div class="form-group">
-                                  <label for="total_precio">Total</label>
-                                  <input type="number" class="form-control total_precio" placeholder="Precio real." readonly />
-                                  <input type="hidden" name="total_precio" id="total_precio" class="form-control total" placeholder="Precio real." readonly />
+                                  <label for="precio_venta">Precio Venta</label>
+                                  <input type="text" name="precio_venta" class="form-control" id="precio_venta" placeholder="precio venta." readonly />
                                 </div>
                               </div>
-
-                              <!--descripcion_material-->
+                              <!--descripcion_producto-->
                               <div class="col-lg-12 class_pading">
                                 <div class="form-group">
-                                  <label for="descripcion_material">Descripción </label> <br />
-                                  <textarea name="descripcion_material" id="descripcion_material" class="form-control" rows="2"></textarea>
+                                  <label for="descripcion">Descripción </label> <br />
+                                  <textarea name="descripcion" id="descripcion" class="form-control" rows="2"></textarea>
                                 </div>
                               </div>
-                              
-                              <!--iamgen-material-->
-                              <div class="col-md-6 col-lg-6">
-                                <label for="imagen1">Imagen</label>
-                                <div style="text-align: center;">
-                                  <img
-                                    onerror="this.src='../dist/img/default/img_defecto_materiales.png';"
-                                    src="../dist/img/default/img_defecto_materiales.png"
-                                    class="img-thumbnail"
-                                    id="imagen1_i"
-                                    style="cursor: pointer !important; height: 100% !important;"
-                                    width="auto"
-                                  />
-                                  <input style="display: none;" type="file" name="imagen1" id="imagen1" accept="image/*" />
-                                  <input type="hidden" name="imagen1_actual" id="imagen1_actual" />
-                                  <div class="text-center" id="imagen1_nombre"><!-- aqui va el nombre de la FOTO --></div>
-                                </div>
-                              </div>
-
+                                             
                               <!-- Ficha tecnica -->
                               <div class="col-md-6 col-lg-6">
-                                <label for="doc2_i" >Ficha técnica <b class="text-danger">(Imagen o PDF)</b> </label>  
+                                <label for="doc2_i" >Imagen Producto<b class="text-danger">(Imagen o PDF)</b> </label>  
                                 <div class="row text-center">                               
                                   <!-- Subir documento -->
                                   <div class="col-md-6 text-center">
@@ -292,7 +264,7 @@
                             </div>
                           </div>
                           <!-- /.card-body -->
-                          <button type="submit" style="display: none;" id="submit-form-materiales">Submit</button>
+                          <button type="submit" style="display: none;" id="submit-form-productos">Submit</button>
                         </form>
                       </div>
                       <div class="modal-footer justify-content-between">

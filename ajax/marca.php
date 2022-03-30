@@ -72,9 +72,16 @@ switch ($_GET["op"]){
         $rspta = $marca->select();
 
         while ($reg = $rspta->fetch_object()) {
-          echo '<option  value=' . $reg->idmarca . '>' . $reg->nombre_marca . '</option>';
+          echo '<option  value=' . $reg->idmarca . '>' . $reg->nombre . '</option>';
         }
         break;
+	case 'selectmarca2':
+		$rspta = $marca->select();
+
+        while ($reg = $rspta->fetch_object()) {
+          echo '<option  value=' . $reg->nombre . '>' . $reg->nombre . '</option>';
+        }
+		break;	
 	case 'salir':
 		//Limpiamos las variables de sesión   
         session_unset();

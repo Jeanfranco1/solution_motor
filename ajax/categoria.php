@@ -72,6 +72,20 @@ if (!isset($_SESSION["nombre"])) {
         echo json_encode($results);
 
         break;
+        case "selectcategoria":
+          $rspta = $categoria->select();
+  
+          while ($reg = $rspta->fetch_object()) {
+            echo '<option  value=' . $reg->idcategoria . '>' . $reg->nombre . '</option>';
+          }
+      break;
+      case 'selectcategoria2':
+        $rspta = $categoria->select();
+    
+            while ($reg = $rspta->fetch_object()) {
+              echo '<option  value=' . $reg->nombre . '>' . $reg->nombre . '</option>';
+            }
+        break;	
     }
     //Fin de las validaciones de acceso
   } else {
