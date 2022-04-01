@@ -75,6 +75,8 @@
                                 <th data-toggle="tooltip" data-original-title="Precio compra">Precio compra</th>
                                 <th data-toggle="tooltip" data-original-title="porcentaje utilidad">P.U %</th>
                                 <th data-toggle="tooltip" data-original-title="Precio Venta">Precio Venta</th>
+                                <th>Codigo</th>
+                                <th>Ubicacion</th>
                                 <th>Estado</th>
                               </tr>
                             </thead>
@@ -91,6 +93,8 @@
                                 <th data-toggle="tooltip" data-original-title="Precio compra">Precio compra</th>
                                 <th data-toggle="tooltip" data-original-title="porcentaje utilidad">P.U %</th>
                                 <th data-toggle="tooltip" data-original-title="Precio Venta">Precio Venta</th>
+                                <th>Codigo</th>
+                                <th>Ubicacion</th>
                                 <th>Estado</th>
                               </tr>
                             </tfoot>
@@ -111,7 +115,7 @@
                   <div class="modal-dialog modal-dialog-scrollable modal-lg">
                     <div class="modal-content">
                       <div class="modal-header">
-                        <h4 class="modal-title">Agregar Insumos</h4>
+                        <h4 class="modal-title">Agregar Producto</h4>
                         <button type="button" class="close" data-dismiss="modal" aria-label="Close">
                           <span class="text-danger" aria-hidden="true">&times;</span>
                         </button>
@@ -220,6 +224,20 @@
                                   <input type="text" name="precio_venta" class="form-control" id="precio_venta" placeholder="precio venta." readonly />
                                 </div>
                               </div>
+                              <!--Total-->
+                              <div class="col-lg-4 class_pading">
+                                <div class="form-group">
+                                  <label for="codigo_producto">Codigo del Producto</label>
+                                  <input type="text" name="codigo_producto" class="form-control" id="codigo_producto" placeholder="codigo producto."/>
+                                </div>
+                              </div>
+                              <!--Total-->
+                              <div class="col-lg-4">
+                                <div class="form-group">
+                                  <label for="ubicacion_producto">Ubicacion del Producto </label>
+                                  <select name="idubicacion_producto" id="idubicacion_producto" class="form-control select2" style="width: 100%;"></select>
+                                </div>
+                              </div>
                               <!--descripcion_producto-->
                               <div class="col-lg-12 class_pading">
                                 <div class="form-group">
@@ -242,7 +260,7 @@
                                   </div>
                                   <!-- Recargar -->
                                   <div class="col-md-6 text-center comprobante">
-                                    <button type="button" class="btn btn-info btn-block btn-xs" onclick="re_visualizacion(2, 'ficha_tecnica');">
+                                    <button type="button" class="btn btn-info btn-block btn-xs" onclick="re_visualizacion(2, 'img_perfil');">
                                     <i class="fas fa-redo"></i> Recargar.
                                   </button>
                                   </div>                                  

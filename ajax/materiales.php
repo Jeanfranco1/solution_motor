@@ -28,7 +28,9 @@
       $precio_compra = isset($_POST["precio_compra"]) ? limpiarCadena($_POST["precio_compra"]) : "";
       $porcentaje = isset($_POST["porcentaje"]) ? limpiarCadena($_POST["porcentaje"]) : "";
       $precio_venta = isset($_POST["precio_venta"]) ? limpiarCadena($_POST["precio_venta"]) : "";
-      $descripcion = isset($_POST["descripcion_material"]) ? encodeCadenaHtml($_POST["descripcion_material"]) : "";      
+      $codigo_producto = isset($_POST["codigo_producto"]) ? limpiarCadena($_POST["codigo_producto"]) : "";
+      $idubicacion_producto = isset($_POST["idubicacion_producto"]) ? limpiarCadena($_POST["idubicacion_producto"]) : "";
+      $descripcion = isset($_POST["descripcion"]) ? encodeCadenaHtml($_POST["descripcion"]) : "";      
       $imagen_ficha = isset($_POST["doc2"]) ? limpiarCadena($_POST["doc2"]) : ""; 
 
       switch ($_GET["op"]) {
@@ -40,22 +42,22 @@
 
             $ficha_tecnica = $_POST["doc_old_2"];
 
-            $flat_ficha1 = false;
+            $flat_img1 = false;
 
           } else {
 
             $ext1 = explode(".", $_FILES["doc2"]["name"]);
 
-            $flat_ficha1 = true;
+            $flat_img1 = true;
 
             $ficha_tecnica = rand(0, 20) . round(microtime(true)) . rand(21, 41) . '.' . end($ext1);
 
-            move_uploaded_file($_FILES["doc2"]["tmp_name"], "../dist/docs/material/ficha_tecnica/" . $ficha_tecnica);
+            move_uploaded_file($_FILES["doc2"]["tmp_name"], "../dist/docs/material/img_perfil/" . $ficha_tecnica);
           }
 
           if (empty($idproducto)) {
             
-            $rspta = $materiales->insertar($nombre_producto, $categoria, $marca, $modelo, $serie, $unid_medida, $color, $stock, $precio_compra, $porcentaje, $precio_venta, $descripcion, $ficha_tecnica);
+            $rspta = $materiales->insertar($nombre_producto, $categoria, $marca, $idubicacion_producto, $modelo, $serie, $unid_medida, $color, $stock, $precio_compra, $porcentaje, $precio_venta,$codigo_producto, $descripcion, $ficha_tecnica);
             
             echo $rspta ? "ok" : "No se pudieron registrar todos los datos del proveedor";
 
@@ -74,7 +76,7 @@
               }
             }
              
-            $rspta = $materiales->editar($idproducto, $nombre_producto, $categoria, $marca, $modelo, $serie, $unid_medida, $color, $stock, $precio_compra, $porcentaje, $precio_venta, $descripcion, $ficha_tecnica);
+            $rspta = $materiales->editar($idproducto, $nombre_producto, $categoria, $marca,  $idubicacion_producto, $modelo, $serie, $unid_medida, $color, $stock, $precio_compra, $porcentaje, $precio_venta, $codigo_producto, $descripcion, $ficha_tecnica);
             
             echo $rspta ? "ok" : "Trabador no se pudo actualizar";
           }
@@ -144,7 +146,9 @@
               "7" =>'S/. '. number_format($reg->precio_compra, 2, '.', ','),
               "8" => $reg->porcentaje_utilidad.' %',
               "9" =>'S/. '. number_format($reg->precio_venta, 2, '.', ','),
-              "10" => $reg->estado ? '<span class="text-center badge badge-success">Activado</span>' : '<span class="text-center badge badge-danger">Desactivado</span>',
+              "10"=> $reg->codigo_producto,
+              "11"=> $reg->ubicacion,
+              "12" => $reg->estado ? '<span class="text-center badge badge-success">Activado</span>' : '<span class="text-center badge badge-danger">Desactivado</span>',
             ];
           }
 

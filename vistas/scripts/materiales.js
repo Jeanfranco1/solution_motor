@@ -17,6 +17,8 @@ function init() {
   $.post("../ajax/marca.php?op=selectmarca", function (r) { $("#marca").html(r); });
    //Mostramos categorias
    $.post("../ajax/categoria.php?op=selectcategoria", function (r) { $("#categoria").html(r); });
+   //Mostramos ubicacion
+   $.post("../ajax/ubicacion.php?op=selectubicacion", function (r) { $("#idubicacion_producto").html(r); });
 
   //Initialize Select2 color
   $("#color").select2({
@@ -36,6 +38,12 @@ function init() {
     placeholder: "Seleccinar categoria",
     allowClear: true,
   });
+   //Initialize Select2 ubicacion_producto
+   $("#idubicacion_producto").select2({
+    theme: "bootstrap4",
+    placeholder: "Seleccinar ubicacion",
+    allowClear: true,
+  });
   
   //Initialize Select2 unidad
   $("#unid_medida").select2({
@@ -48,8 +56,10 @@ function init() {
   $("#unid_medida").val("null").trigger("change");
   //============marca================
   $("#marca").val("null").trigger("change");
-  //============marca================
+  //============Categoria================
   $("#categoria").val("null").trigger("change");
+  //============ubicacion_producto================
+  $("#idubicacion_producto").val("null").trigger("change");
   // Formato para telefono
   $("[data-mask]").inputmask();
 }
@@ -86,6 +96,8 @@ function limpiar() {
   $("#precio_compra").val("");
   $("#porcentaje").val("");
   $("#precio_venta").val("");
+  $("#codigo_producto").val("");
+  $("#idubicacion_producto").val("null").trigger("change");
   $("#descripcion").val("");
 
   
@@ -216,12 +228,22 @@ function mostrar(idproducto) {
     $("#cargando-2-fomulario").hide();
 
     $("#idproducto").val(data.idproducto);
-    $("#nombre_material").val(data.nombre);
+    $("#nombre_producto").val(data.nombre);
     $("#modelo").val(data.modelo);
-    $("#serie").val(data.serie);
-    $("#marca").val(data.idmarca).trigger("change");  
+    $("#serie").val(data.serie); 
+    $("#marca").val(data.idmarca).trigger("change");
     $("#categoria").val(data.idcategoria).trigger("change");           
     $("#descripcion_material").val(data.descripcion);
+    $("#color").val(data.idcolor).trigger("change");
+    $("#unid_medida").val(data.unidad_medida).trigger("change");
+    $("#codigo_producto").val(data.codigo_producto); 
+    $("#idubicacion_producto").val(data.idubicacion_producto).trigger("change"); 
+    $("#precio_compra").val(data.precio_compra); 
+    $("#precio_venta").val(data.precio_venta); 
+    $("#porcentaje").val(data.porcentaje_utilidad); 
+    $("#descripcion").val(data.descripcion); 
+    $("#stock").val(data.stock); 
+
 
     $("#precio_unitario").val(parseFloat(data.precio_unitario).toFixed(2));
     $("#estado_igv").val(data.estado_igv);
@@ -233,8 +255,8 @@ function mostrar(idproducto) {
     $(".monto_igv").val(parseFloat(data.precio_igv).toFixed(2));
     $(".total_precio").val(parseFloat(data.precio_total).toFixed(2));    
      
-    $("#unid_medida").val(data.idunidad_medida).trigger("change");
-    $("#color").val(data.idcolor).trigger("change");
+  
+    
     
 
     // FICHA TECNICA
@@ -255,7 +277,7 @@ function mostrar(idproducto) {
       // cargamos la imagen adecuada par el archivo
       if ( extrae_extencion(data.ficha_tecnica) == "pdf" ) {
 
-        $("#doc2_ver").html('<iframe src="../dist/docs/material/ficha_tecnica/'+data.ficha_tecnica+'" frameborder="0" scrolling="no" width="100%" height="210"> </iframe>');
+        $("#doc2_ver").html('<iframe src="../dist/docs/material/img_perfil/'+data.ficha_tecnica+'" frameborder="0" scrolling="no" width="100%" height="210"> </iframe>');
 
       }else{
         if (
@@ -264,7 +286,7 @@ function mostrar(idproducto) {
           extrae_extencion(data.ficha_tecnica) == "tiff" || extrae_extencion(data.ficha_tecnica) == "tif" || extrae_extencion(data.ficha_tecnica) == "webp" ||
           extrae_extencion(data.ficha_tecnica) == "bmp" || extrae_extencion(data.ficha_tecnica) == "svg" ) {
 
-          $("#doc2_ver").html(`<img src="../dist/docs/material/ficha_tecnica/${data.ficha_tecnica}" alt="" width="50%" onerror="this.src='../dist/svg/error-404-x.svg';" >`); 
+          $("#doc2_ver").html(`<img src="../dist/docs/material/img_perfil/${data.ficha_tecnica}" alt="" width="50%" onerror="this.src='../dist/svg/error-404-x.svg';" >`); 
           
         } else {
           $("#doc2_ver").html('<img src="../dist/svg/doc_si_extencion.svg" alt="" width="50%" >');
@@ -405,11 +427,13 @@ $(function () {
       categoria: {required: true},
       marca: { required: true}, 
       color: { required: true },
+      ubicacion_producto: { required: true },
       unid_medida: { required: true },
       modelo: {required: true},
       precio_compra: {required: true},
       porcentaje: {required: true },
       stock: {required: true},
+      codigo_producto: { required: true },
       descripcion: { minlength: 1 },
       
     },
@@ -426,6 +450,9 @@ $(function () {
       color: {
         required: "Selecione un color",
       },
+      ubicacion_producto: {
+        required: "Seleccione ubicacion del producto",
+      },
       unid_medida: {
         required: "Selecione unidad de medida",
       },
@@ -440,6 +467,9 @@ $(function () {
       },
       stock: {
         required: "ingrese stock",
+      },
+      codigo_producto: {
+        required: "Ingrese codigo del producto",
       },
       descripcion: {
         required: "Selecione un descripcion",

@@ -216,6 +216,63 @@
                   </section>
                   <!-- /.content -->
                 </div>
+
+                <!--====Ubicacion==-->
+                <div class="col-sm-12 col-md-12 col-lg-6 col-xl-6">
+                  <!-- Content Header (Page header) -->
+                  <section class="content-header">
+                    <div class="container-fluid">
+                      <div class="row mb-2">
+                        <div class="col-sm-6">
+                          <h1>Ubicacion</h1>
+                        </div>
+                      </div>
+                    </div>
+                    <!-- /.container-fluid -->
+                  </section>
+
+                  <!-- Main content -->
+
+                  <!-- Main content -->
+                  <section class="content">
+                    <div class="container-fluid">
+                      <div class="card card-primary card-outline">
+                        <div class="card-header">
+                          <h3 class="card-title">
+                            <button type="button" class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-agregar-ubicacion" onclick="limpiar_ubicacion();"><i class="fas fa-plus-circle"></i> Agregar</button>
+                            Admnistrar Ubicacion.
+                          </h3>
+                        </div>
+                        <!-- /.card-header -->
+                        <div class="card-body">
+                          <table id="tabla-ubicacion" class="table table-bordered table-striped display" style="width: 100% !important;">
+                            <thead>
+                              <tr>
+                                <th class="text-center">#</th>
+                                <th class="">Acciones</th>
+                                <th>Nombre</th>
+                                <th>Estado</th>
+                              </tr>
+                            </thead>
+                            <tbody></tbody>
+                            <tfoot>
+                              <tr>
+                                <th class="text-center">#</th>
+                                <th class="">Acciones</th>
+                                <th>Nombre</th>
+                                <th>Estado</th>
+                              </tr>
+                            </tfoot>
+                          </table>
+                        </div>
+                        <!-- /.card-body -->
+                      </div>
+                      <!-- /.card -->
+                    </div>
+                    <!-- /.container-fluid -->
+                  </section>
+                  <!-- /.content -->
+                </div>
               </div>
 
               
@@ -357,6 +414,52 @@
                   </div>
                 </div>
               </div>
+              <!--================ modals-Ubicacion  ======================-->
+              <div class="modal fade" id="modal-agregar-ubicacion">
+                <div class="modal-dialog modal-dialog-scrollable modal-md">
+                  <div class="modal-content">
+                    <div class="modal-header">
+                      <h4 class="modal-title">Agregar Ubicacion</h4>
+                      <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span class="text-danger" aria-hidden="true">&times;</span>
+                      </button>
+                    </div>
+
+                    <div class="modal-body">
+                      <!-- form start -->
+                      <form id="form-ubicacion" name="form-ubicacion" method="POST" autocomplete="off">
+                        <div class="card-body">
+                          <div class="row" id="cargando-1-fomulario">
+                            <!-- id idunidad_medida -->
+                            <input type="hidden" name="idubicacion_producto" id="idubicacion_producto" />
+                            <!-- nombre_medida -->
+                            <div class="col-lg-12 class_pading">
+                              <div class="form-group">
+                                <label for="nombre">Nombre Ubicacion</label>
+                                <input type="text" name="nombre_ubicacion" id="nombre_ubicacion" class="form-control" placeholder="Nombre de la Ubicacion" />
+                              </div>
+                            </div>
+                          </div>
+
+                          <div class="row" id="cargando-2-fomulario" style="display: none;">
+                            <div class="col-lg-12 text-center">
+                              <i class="fas fa-spinner fa-pulse fa-6x"></i><br />
+                              <br />
+                              <h4>Cargando...</h4>
+                            </div>
+                          </div>
+                        </div>
+                        <!-- /.card-body -->
+                        <button type="submit" style="display: none;" id="submit-form-ubicacion">Submit</button>
+                      </form>
+                    </div>
+                    <div class="modal-footer justify-content-between">
+                      <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="limpiar_ubicacion();">Close</button>
+                      <button type="submit" class="btn btn-success" id="guardar_registro_ubicacion">Guardar Cambios</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
             </div>
 
             <?php
@@ -396,6 +499,7 @@
         <script type="text/javascript" src="scripts/color.js"></script>
         <script type="text/javascript" src="scripts/categoria.js"></script> 
         <script type="text/javascript" src="scripts/marca.js"></script>
+        <script type="text/javascript" src="scripts/ubicacion.js"></script>
 
         <script>
           $(function () {
