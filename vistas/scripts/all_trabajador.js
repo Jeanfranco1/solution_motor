@@ -1,18 +1,12 @@
-var tabla; var tabla2;
+var tabla; 
 
 //Función que se ejecuta al inicio
 function init() {
 
   listar( );
 
-  //Mostramos los BANCOS
-  $.post("../ajax/all_trabajador.php?op=select2Banco", function (r) { $("#banco").html(r); });
-
   //Mostramos los tipo
   $.post("../ajax/tipo.php?op=selecttipo_tipo", function (r) { $("#tipo").html(r); });
-
-  //Mostramos los ocupación
-  $.post("../ajax/ocupacion.php?op=selectocupacion", function (r) { $("#ocupacion").html(r); });
 
   $("#bloc_Recurso").addClass("menu-open");
 
@@ -29,34 +23,10 @@ function init() {
   $("#foto1_i").click(function() { $('#foto1').trigger('click'); });
   $("#foto1").change(function(e) { addImage(e,$("#foto1").attr("id")) });
 
-  $("#foto2_i").click(function() { $('#foto2').trigger('click'); });
-  $("#foto2").change(function(e) { addImage(e,$("#foto2").attr("id")) });
-
-  $("#foto3_i").click(function() { $('#foto3').trigger('click'); });
-  $("#foto3").change(function(e) { addImage(e,$("#foto3").attr("id")) });
-
-  $("#doc4_i").click(function() {  $('#doc4').trigger('click'); });
-  $("#doc4").change(function(e) {  addDocs(e,$("#doc4").attr("id")) });
-
-  $("#doc5_i").click(function() {  $('#doc5').trigger('click'); });
-  $("#doc5").change(function(e) {  addDocs(e,$("#doc5").attr("id")) });
-
-  //Initialize Select2 Elements
-  $("#banco").select2({
-    theme: "bootstrap4",
-    placeholder: "Selecione banco",
-    allowClear: true,
-  });
   //Initialize Select2 Elements
   $("#tipo").select2({
     theme: "bootstrap4",
     placeholder: "Selecione tipo",
-    allowClear: true,
-  });
-  //Initialize Select2 Elements
-  $("#ocupacion").select2({
-    theme: "bootstrap4",
-    placeholder: "Selecione Ocupación",
     allowClear: true,
   });
 }
@@ -398,69 +368,6 @@ function foto1_eliminar() {
 	$("#foto1_nombre").html("");
 }
 
-function foto2_eliminar() {
-
-	$("#foto2").val("");
-
-	$("#foto2_i").attr("src", "../dist/img/default/dni_anverso.webp");
-
-	$("#foto2_nombre").html("");
-}
-
-function foto3_eliminar() {
-
-	$("#foto3").val("");
-
-	$("#foto3_i").attr("src", "../dist/img/default/dni_reverso.webp");
-
-	$("#foto3_nombre").html("");
-}
-
-// Eliminamos el doc 4
-function doc4_eliminar() {
-
-	$("#doc4").val("");
-
-	$("#doc4_ver").html('<img src="../dist/svg/pdf_trasnparent.svg" alt="" width="50%" >');
-
-	$("#doc4_nombre").html("");
-}
-
-// Eliminamos el doc 5
-function doc5_eliminar() {
-
-	$("#doc5").val("");
-
-	$("#doc5_ver").html('<img src="../dist/svg/pdf_trasnparent.svg" alt="" width="50%" >');
-
-	$("#doc5_nombre").html("");
-}
-
-function no_pdf() {
-  toastr.error("No hay DOC disponible, suba un DOC en el apartado de editar!!")
-}
-
-function dowload_pdf() {
-  toastr.success("El documento se descargara en breve!!")
-}
-
-function extrae_extencion(filename) {
-  return filename.split('.').pop();
-}
-
-function sueld_mensual(){
-
-  var sueldo_mensual = $('#sueldo_mensual').val()
-
-  var sueldo_diario=(sueldo_mensual/30).toFixed(1);
-
-  var sueldo_horas=(sueldo_diario/8).toFixed(1);
-
-  $("#sueldo_diario").val(sueldo_diario);
-
-  $("#sueldo_hora").val(sueldo_horas);
-}
-
 //Función limpiar
 function limpiar() {
   $("#idtrabajador").val("");
@@ -472,33 +379,15 @@ function limpiar() {
   $("#email").val(""); 
   $("#nacimiento").val("");
   $("#edad").val("0");  $("#p_edad").html("0");    
-  $("#c_bancaria").val("");  
-  $("#cci").val("");  
-  $("#banco").val("").trigger("change");
+  
+  
   $("#tipo").val("").trigger("change");
-  $("#ocupacion").val("").trigger("change");
-  $("#titular_cuenta").val("");
+  
 
   $("#foto1_i").attr("src", "../dist/img/default/img_defecto.png");
 	$("#foto1").val("");
 	$("#foto1_actual").val("");  
   $("#foto1_nombre").html(""); 
-
-  $("#foto2_i").attr("src", "../dist/img/default/dni_anverso.webp");
-	$("#foto2").val("");
-	$("#foto2_actual").val("");  
-  $("#foto2_nombre").html("");  
-
-  $("#foto3_i").attr("src", "../dist/img/default/dni_reverso.webp");
-	$("#foto3").val("");
-	$("#foto3_actual").val("");  
-  $("#foto3_nombre").html(""); 
-
-  $("#doc4").val("");
-  $("#doc_old_4").val("");
-  
-  $("#doc5").val("");
-  $("#doc_old_5").val("");
   
   $(".form-control").removeClass('is-valid');
   $(".is-invalid").removeClass("error is-invalid");
@@ -637,12 +526,6 @@ function verdatos(idtrabajador){
 
   var imagen_perfil =''; btn_imagen_perfil=''; 
 
-  var imagen_dni_anverso =''; var btn_imagen_dni_anverso=''; 
-  var imagen_dni_reverso =''; var btn_imagen_dni_reverso=''; 
-  
-  var cv_documentado=''; var btn_cv_documentado=''; 
-  var cv_no_documentado ='';  var btn_cv_no_documentado='';
-
   $("#modal-ver-trabajador").modal("show")
 
   $.post("../ajax/all_trabajador.php?op=verdatos", { idtrabajador: idtrabajador }, function (data, status) {
@@ -667,90 +550,6 @@ function verdatos(idtrabajador){
 
       imagen_perfil='No hay imagen';
       btn_imagen_perfil='';
-
-    }
-
-    if (data.imagen_dni_anverso != '') {
-
-      imagen_dni_anverso=`<img src="../dist/docs/all_trabajador/dni_anverso/${data.imagen_dni_anverso}" alt="" class="img-thumbnail">`
-      
-      btn_imagen_dni_anverso=`
-      <div class="row">
-        <div class="col-6"">
-           <a type="button" class="btn btn-info btn-block btn-xs" target="_blank" href="../dist/docs/all_trabajador/dni_anverso/${data.imagen_dni_anverso}"> <i class="fas fa-expand"></i></a>
-        </div>
-        <div class="col-6"">
-           <a type="button" class="btn btn-warning btn-block btn-xs" href="../dist/docs/all_trabajador/dni_anverso/${data.imagen_dni_anverso}" download="DNI ${data.nombres}"> <i class="fas fa-download"></i></a>
-        </div>
-      </div>`;
-    
-    } else {
-
-      imagen_dni_anverso='No hay imagen';
-      btn_imagen_dni_anverso='';
-
-    }
-
-    if (data.imagen_dni_reverso != '') {
-
-      imagen_dni_reverso=`<img src="../dist/docs/all_trabajador/dni_reverso/${data.imagen_dni_reverso}" alt="" class="img-thumbnail">`
-      
-      btn_imagen_dni_reverso=`
-      <div class="row">
-        <div class="col-6"">
-           <a type="button" class="btn btn-info btn-block btn-xs" target="_blank" href="../dist/docs/all_trabajador/dni_reverso/${data.imagen_dni_reverso}"> <i class="fas fa-expand"></i></a>
-        </div>
-        <div class="col-6"">
-           <a type="button" class="btn btn-warning btn-block btn-xs" href="../dist/docs/all_trabajador/dni_reverso/${data.imagen_dni_reverso}" download="DNI ${data.nombres}"> <i class="fas fa-download"></i></a>
-        </div>
-      </div>`;
-    
-    } else {
-
-      imagen_dni_reverso='No hay imagen';
-      btn_imagen_dni_reverso='';
-
-    }
-
-    if (data.cv_documentado != '') {
-
-      cv_documentado=`<iframe src="../dist/docs/all_trabajador/cv_documentado/${data.cv_documentado}" frameborder="0" scrolling="no" width="100%" height="210"> </iframe>`
-      
-      btn_cv_documentado=`
-      <div class="row">
-        <div class="col-6"">
-           <a type="button" class="btn btn-info btn-block btn-xs" target="_blank" href="../dist/docs/all_trabajador/cv_documentado/${data.cv_documentado}"> <i class="fas fa-expand"></i></a>
-        </div>
-        <div class="col-6"">
-           <a type="button" class="btn btn-warning btn-block btn-xs" href="../dist/docs/all_trabajador/cv_documentado/${data.cv_documentado}" download="CV DOCUMENTADO ${data.nombres}"> <i class="fas fa-download"></i></a>
-        </div>
-      </div>`;
-    
-    } else {
-
-      cv_documentado='Sin CV documentado';
-      btn_cv_documentado='';
-
-    }
-
-    if (data.cv_no_documentado != '') {
-
-      cv_no_documentado=`<iframe src="../dist/docs/all_trabajador/cv_no_documentado/${data.cv_no_documentado}" frameborder="0" scrolling="no" width="100%" height="210"> </iframe>`
-      
-      btn_cv_no_documentado=`
-      <div class="row">
-        <div class="col-6"">
-           <a type="button" class="btn btn-info btn-block btn-xs" target="_blank" href="../dist/docs/all_trabajador/cv_no_documentado/${data.cv_no_documentado}"> <i class="fas fa-expand"></i> </a>
-        </div>
-        <div class="col-6"">
-           <a type="button" class="btn btn-warning btn-block btn-xs" href="../dist/docs/all_trabajador/cv_no_documentado/${data.cv_no_documentado}" download="CV NO DOCUMENTADO ${data.nombres}"> <i class="fas fa-download"></i></a>
-        </div>
-      </div>`;
-    
-    } else {
-
-      cv_no_documentado='Sin CV no documentado';
-      btn_cv_no_documentado='';
 
     }
 
@@ -784,39 +583,6 @@ function verdatos(idtrabajador){
               <tr data-widget="expandable-table" aria-expanded="false">
                 <th>Fecha nacimiento</th>
                   <td>${data.fecha_nacimiento}</td>
-              </tr>
-              <tr data-widget="expandable-table" aria-expanded="false">
-                <th>Cuenta bancaria</th>
-                <td>${data.cuenta_bancaria_format}</td>
-              </tr>
-              <tr data-widget="expandable-table" aria-expanded="false">
-                <th>CCI </th>
-                <td>${data.cci_format}</td>
-              </tr>
-              <tr data-widget="expandable-table" aria-expanded="false">
-                <th>Banco</th>
-                <td>${data.banco}</td>
-              </tr>
-              <tr data-widget="expandable-table" aria-expanded="false">
-                <th>Titular cuenta </th>
-                <td>${data.titular_cuenta}</td>
-              </tr>
-              
-              <tr data-widget="expandable-table" aria-expanded="false">
-                <th>DNI anverso</th>
-                <td> ${imagen_dni_anverso} <br>${btn_imagen_dni_anverso}</td>
-              </tr>
-              <tr data-widget="expandable-table" aria-expanded="false">
-                <th>DNI reverso</th>
-                <td> ${imagen_dni_reverso}<br>${btn_imagen_dni_reverso}</td>
-              </tr>
-              <tr data-widget="expandable-table" aria-expanded="false">
-                <th>CV documentado</th>
-                <td> ${cv_documentado} <br>${btn_cv_documentado}</td>
-              </tr>
-              <tr data-widget="expandable-table" aria-expanded="false">
-                <th>CV no documentado</th>
-                <td> ${cv_no_documentado} <br>${btn_cv_no_documentado}</td>
               </tr>
             </tbody>
           </table>
