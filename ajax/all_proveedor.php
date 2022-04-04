@@ -15,13 +15,6 @@ $tipo_documento		= isset($_POST["tipo_documento"])? limpiarCadena($_POST["tipo_d
 $num_documento	    = isset($_POST["num_documento"])? limpiarCadena($_POST["num_documento"]):"";
 $direccion		    = isset($_POST["direccion"])? limpiarCadena($_POST["direccion"]):"";
 $telefono		    = isset($_POST["telefono"])? limpiarCadena($_POST["telefono"]):"";
-$c_bancaria		    = isset($_POST["c_bancaria"])? limpiarCadena($_POST["c_bancaria"]):"";
-$cci		    	= isset($_POST["cci"])? limpiarCadena($_POST["cci"]):"";
-$c_detracciones		= isset($_POST["c_detracciones"])? limpiarCadena($_POST["c_detracciones"]):"";
-$banco			    = isset($_POST["banco"])? limpiarCadena($_POST["banco"]):"";
-$titular_cuenta		= isset($_POST["titular_cuenta"])? limpiarCadena($_POST["titular_cuenta"]):"";
-
-
 
 switch ($_GET["op"]){
 	case 'guardaryeditar':
@@ -37,11 +30,11 @@ switch ($_GET["op"]){
 
 
 				if (empty($idproveedor)){
-					$rspta=$proveedor->insertar($nombre,$tipo_documento,$num_documento,$direccion,$telefono,$c_bancaria, $cci, $c_detracciones,$banco,$titular_cuenta);
+					$rspta=$proveedor->insertar($nombre,$tipo_documento,$num_documento,$direccion,$telefono);
 					echo $rspta ? "ok" : "No se pudieron registrar todos los datos del proveedor";
 				}
 				else {
-					$rspta=$proveedor->editar($idproveedor,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$c_bancaria, $cci, $c_detracciones,$banco,$titular_cuenta);
+					$rspta=$proveedor->editar($idproveedor,$nombre,$tipo_documento,$num_documento,$direccion,$telefono);
 					echo $rspta ? "ok" : "Trabador no se pudo actualizar";
 				}
 				//Fin de las validaciones de acceso
@@ -151,7 +144,7 @@ switch ($_GET["op"]){
 		 		//Vamos a declarar un array
 		 		$data= Array();
 				 $cont=1;
-				 //idbancos,razon_social,tipo_documento,ruc,direccion,telefono,cuenta_bancaria,cuenta_detracciones,titular_cuenta
+				 //idbancos,nombres,tipo_documento,ruc,direccion,telefono,cuenta_bancaria,cuenta_detracciones,titular_cuenta
 
 		 		while ($reg=$rspta->fetch_object()){
 		 			$data[]=array(
@@ -161,14 +154,12 @@ switch ($_GET["op"]){
 							 '<button class="btn btn-warning btn-sm" onclick="mostrar('.$reg->idproveedor.')"><i class="fa fa-pencil-alt"></i></button>'.
 		 					' <button class="btn btn-primary btn-sm" onclick="activar('.$reg->idproveedor.')"><i class="fa fa-check"></i></button>',
 						"2"=>'<div class="user-block">
-							<span class="username" style="margin-left: 0px !important;"><p class="text-primary"style="margin-bottom: 0.2rem !important"; >'. $reg->razon_social .'</p></span>
-							<span class="description" style="margin-left: 0px !important;"><b>'. $reg->tipo_documento .'</b>: '. $reg->ruc .' </span>
+							<span class="username" style="margin-left: 0px !important;"><p class="text-primary"style="margin-bottom: 0.2rem !important"; >'. $reg->nombre .'</p></span>
+							<span class="description" style="margin-left: 0px !important;"><b>'. $reg->tipo_documento .'</b>: '. $reg->numero_documento .' </span>
 							<span class="description" style="margin-left: 0px !important;"><b>Cel.:</b>'. '<a href="tel:+51'.quitar_guion($reg->telefono).'" data-toggle="tooltip" data-original-title="Llamar al PROVEEDOR.">'. $reg->telefono . '</a>' .' </span>
 							</div>',
 		 				"3"=>$reg->direccion,
-		 				"4"=> '<div class="w-px-250"><b>Cta. Banc.:</b>'. $reg->cuenta_bancaria. '<br> <b>CCI:</b> '. $reg->cci.' <br> <b>Cta. Dtrac.:</b> '.$reg->cuenta_detracciones. '</div>',
-		 				"5"=>$reg->titular_cuenta,
-		 				"6"=>($reg->estado)?'<span class="text-center badge badge-success">Activado</span>':'<span class="text-center badge badge-danger">Desactivado</span>'
+		 				"4"=>($reg->estado)?'<span class="text-center badge badge-success">Activado</span>':'<span class="text-center badge badge-danger">Desactivado</span>'
 		 				);
 		 		}
 		 		$results = array(
@@ -184,25 +175,6 @@ switch ($_GET["op"]){
 		  	require 'noacceso.php';
 			}
 		}
-	break;
-	
-	case 'select2Banco': 
-
-		$rspta = $proveedor->select2_banco();
-	
-		while ($reg = $rspta->fetch_object())  {
-
-		  echo '<option value=' . $reg->id . '>' . $reg->nombre . ((empty($reg->alias)) ? "" : " - $reg->alias" ) .'</option>';
-		}
-
-	  break;
-
-	case 'formato_banco':
-           
-		$rspta=$proveedor->formato_banco($_POST["idbanco"]);
-		//Codificar el resultado utilizando json
-		echo json_encode($rspta);
-		 
 	break;
 
 	case 'salir':

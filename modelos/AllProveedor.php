@@ -11,31 +11,27 @@ Class Proveedor
 	}
 
 	//Implementamos un método para insertar registros
-	public function insertar($nombre, $tipo_documento, $num_documento, $direccion, $telefono, $c_bancaria, $cci, $c_detracciones, $banco, $titular_cuenta)
+	public function insertar($nombre, $tipo_documento, $num_documento, $direccion, $telefono, )
 	{
-		$sql="INSERT INTO proveedor (idbancos, razon_social, tipo_documento, ruc, direccion, telefono, cuenta_bancaria, cci, cuenta_detracciones, titular_cuenta)
-		VALUES ('$banco', '$nombre', '$tipo_documento', '$num_documento', '$direccion', '$telefono', '$c_bancaria', '$cci', '$c_detracciones', '$titular_cuenta')";
+		$sql="INSERT INTO proveedor ( nombre, tipo_documento,numero_documento, direccion, telefono)
+		VALUES ('$nombre', '$tipo_documento', '$num_documento', '$direccion', '$telefono')";
 		
 		return ejecutarConsulta($sql);
 			
 	}
 
 	//Implementamos un método para editar registros
-	public function editar($idproveedor, $nombre, $tipo_documento, $num_documento, $direccion, $telefono, $c_bancaria, $cci, $c_detracciones, $banco, $titular_cuenta)
+	public function editar($idproveedor, $nombre, $tipo_documento, $num_documento, $direccion, $telefono, )
 	{
 		//var_dump($idproveedor,$nombre,$tipo_documento,$num_documento,$direccion,$telefono,$c_bancaria,$c_detracciones,$banco,$titular_cuenta);die;
 		
-		$sql="UPDATE proveedor SET idbancos='$banco',
-		razon_social='$nombre',
+		$sql="UPDATE proveedor SET 
+		nombre='$nombre',
 		tipo_documento='$tipo_documento', 
-		ruc='$num_documento',
+        numero_documento ='$num_documento',
 		direccion='$direccion',
-		telefono='$telefono',
-		cuenta_bancaria='$c_bancaria', cci='$cci', 
-		cuenta_detracciones='$c_detracciones',
-		titular_cuenta='$titular_cuenta' 
+		telefono='$telefono'
 		WHERE idproveedor='$idproveedor'";	
-		
 		return ejecutarConsulta($sql);
 		
 	}
@@ -70,25 +66,17 @@ Class Proveedor
 	//Implementar un método para listar los registros
 	public function listar()
 	{
-		$sql="SELECT * FROM proveedor WHERE idproveedor>1 AND estado=1 AND estado_delete=1 ORDER BY  razon_social ASC";
-		return ejecutarConsulta($sql);		
+		$sql="SELECT p.idproveedor,  p.nombre, p.tipo_documento, p.numero_documento,p.direccion, p.telefono,p.estado
+		FROM proveedor as p
+		WHERE  p.estado = 1 AND p.estado_delete = 1 ORDER BY  p.nombre ASC;";
+  
+		return ejecutarConsulta($sql);			
 	}
 	public function listar_compra()
 	{
 		$sql="SELECT * FROM proveedor where estado=1 AND estado_delete=1";
 		return ejecutarConsulta($sql);		
-	}
-
-	public function select2_banco() {
-		$sql="SELECT idbancos as id, nombre, alias FROM bancos WHERE estado='1' AND estado_delete=1  ORDER BY idbancos ASC;";
-		return ejecutarConsulta($sql);		
-	}
-
-	// optenesmo el formato para los bancos
-	public function formato_banco($idbanco){
-		$sql="SELECT nombre, formato_cta, formato_cci, formato_detracciones FROM bancos WHERE estado='1' AND idbancos = '$idbanco';";
-		return ejecutarConsultaSimpleFila($sql);		
-	}
+	}	
 
 }
 

@@ -10,23 +10,9 @@ function init() {
 
   $("#lAllProveedor").addClass("active");
 
-  //Mostramos los BANCOS
-  $.post("../ajax/all_proveedor.php?op=select2Banco", function (r) {
-    $("#banco").html(r);
-  });
-
   $("#guardar_registro").on("click", function (e) {
     $("#submit-form-proveedor").submit();
   });
-
-  //Initialize Select2 Elements
-  $("#banco").select2({
-    theme: "bootstrap4",
-    placeholder: "Selecione banco",
-    allowClear: true,
-  });
-
-  $("#banco").val("null").trigger("change");
 
   // Formato para telefono
   $("[data-mask]").inputmask();
@@ -40,13 +26,7 @@ function limpiar() {
   $("#num_documento").val("");
   $("#direccion").val("");
   $("#telefono").val("");
-  $("#c_bancaria").val("");
-  $("#cci").val("");
-  $("#c_detracciones").val("");
-  //$("#banco").val("");
-  // $("#banco option[value='BCP']").attr("selected", true);
-  $("#banco").val("").trigger("change");
-  $("#titular_cuenta").val("");
+  
 
   // Limpiamos las validaciones
   $(".form-control").removeClass("is-valid");
@@ -145,17 +125,12 @@ function mostrar(idproveedor) {
     $("#cargando-2-fomulario").hide();
 
     $("#tipo_documento option[value='" + data.tipo_documento + "']").attr("selected", true);
-    $("#nombre").val(data.razon_social);
-    $("#num_documento").val(data.ruc);
+    $("#idproveedor").val(data.idproveedor);
+    $("#nombre").val(data.nombre);
+    $("#num_documento").val(data.numero_documento);
     $("#direccion").val(data.direccion);
     $("#telefono").val(data.telefono);
     // $("#banco option[value='"+data.idbancos+"']").attr("selected", true);
-    $("#banco").val(data.idbancos).trigger("change");
-    $("#c_bancaria").val(data.cuenta_bancaria);
-    $("#cci").val(data.cci);
-    $("#c_detracciones").val(data.cuenta_detracciones);
-    $("#titular_cuenta").val(data.titular_cuenta);
-    $("#idproveedor").val(data.idproveedor);
   });
 }
 
@@ -250,29 +225,6 @@ function formato_banco() {
     $(".chargue-format-2").html('<i class="fas fa-spinner fa-pulse fa-lg text-danger"></i>');
     $(".chargue-format-3").html('<i class="fas fa-spinner fa-pulse fa-lg text-danger"></i>');
 
-    
-
-    $.post("../ajax/all_proveedor.php?op=formato_banco", { 'idbanco': $("#banco").select2("val") }, function (data, status) {
-      data = JSON.parse(data);
-      // console.log(data);
-
-      $(".chargue-format-1").html("Cuenta Bancaria");
-      $(".chargue-format-2").html("CCI");
-      $(".chargue-format-3").html("Cuenta Detracciones");
-
-      $("#c_bancaria").prop("readonly", false);
-      $("#cci").prop("readonly", false);
-      $("#c_detracciones").prop("readonly", false);
-
-      var format_cta = decifrar_format_banco(data.formato_cta);
-      var format_cci = decifrar_format_banco(data.formato_cci);
-      var formato_detracciones = decifrar_format_banco(data.formato_detracciones);
-      // console.log(format_cta, formato_detracciones);
-
-      $("#c_bancaria").inputmask(`${format_cta}`);
-      $("#cci").inputmask(`${format_cci}`);
-      $("#c_detracciones").inputmask(`${formato_detracciones}`);
-    });
   }
 }
 
@@ -310,10 +262,6 @@ $(function () {
       nombre: { required: true, minlength: 6, maxlength: 100 },
       direccion: { minlength: 5, maxlength: 150 },
       telefono: { minlength: 8 },
-      c_detracciones: { minlength: 6,  },
-      c_bancaria: { minlength: 6,  },
-      banco: { required: true },
-      titular_cuenta: { minlength: 4 },
 
       // terms: { required: true },
     },
@@ -337,15 +285,6 @@ $(function () {
       },
       telefono: {
         minlength: "El teléfono debe tener  9 caracteres.",
-      },
-      c_detracciones: {
-        minlength: "El número documento debe tener 14 caracteres.",
-      },
-      c_bancaria: {
-        minlength: "El número documento debe tener 14 caracteres.",
-      },
-      banco: {
-        required: "Por favor  seleccione un banco",
       },
     },
 
