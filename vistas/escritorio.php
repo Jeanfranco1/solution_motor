@@ -174,7 +174,7 @@
               <!-- /.container-fluid -->
 
               <!-- Modal agregar proyecto -->
-              <div class="modal fade" id="modal-agregar-proyecto">
+              <div class="modal fade" id="modal-agregar-proyecto"> 
                 <div class="modal-dialog modal-dialog-scrollable modal-xl">
                   <div class="modal-content">
                     <div class="modal-header">

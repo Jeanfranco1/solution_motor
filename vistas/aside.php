@@ -123,6 +123,52 @@
           </li>
         <?php  }  ?>
 
+        <?php if ($_SESSION['compra']==1) {  ?>
+          <!-- Recursos -->
+          <li class="nav-item" id="bloc_Recurso">
+            <a href="#" class="nav-link" id="mRecurso">
+              <i class="nav-icon fas fa-project-diagram"></i>
+              <p>
+                Recursos
+                <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right">4</span>
+              </p>
+            </a>
+            <ul class="nav nav-treeview ">
+              <!-- Usuarios del sistema -->
+              <li class="nav-item ">
+                <a href="compras.php" class="nav-link" id="compras">
+                  <i class="nav-icon fas fa-users"></i>
+                  <p>compras</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        <?php  }  ?>
+        
+        <?php if ($_SESSION['venta']==1) {  ?>
+          <!-- Recursos -->
+          <li class="nav-item" id="bloc_Recurso">
+            <a href="#" class="nav-link" id="mRecurso">
+              <i class="nav-icon fas fa-project-diagram"></i>
+              <p>
+                Venta
+                <i class="fas fa-angle-left right"></i>
+                <span class="badge badge-info right">4</span>
+              </p>
+            </a>
+            <ul class="nav nav-treeview ">
+              <!-- Usuarios del sistema -->
+              <li class="nav-item ">
+                <a href="venta.php" class="nav-link" id="venta">
+                  <i class="nav-icon fas fa-users"></i>
+                  <p>Venta</p>
+                </a>
+              </li>
+            </ul>
+          </li>
+        <?php  }  ?>
+
         <?php if ($_SESSION['activo_fijo_general']==1) {  ?>
           <!-- ALL ACTIVOS FIJOS -->
           <li class="nav-item">
