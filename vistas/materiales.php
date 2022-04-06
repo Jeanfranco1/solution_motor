@@ -132,7 +132,7 @@
                               <div class="col-lg-12 class_pading">
                                 <div class="form-group">
                                   <label for="nombre_producto">Nombre</label>
-                                  <input type="text" name="nombre_producto" class="form-control" id="nombre_producto" placeholder="Nombre del Insumo." />
+                                  <input type="text" name="nombre_producto" class="form-control" id="nombre_producto" placeholder="Nombre del Insumo." onchange="generar_cod();" onkeyup="generar_cod();" />
                                 </div>
                               </div>
 
@@ -148,7 +148,7 @@
                               <div class="col-lg-6">
                                 <div class="form-group">
                                   <label for="marca">Marca</label>
-                                  <select name="marca" id="marca" class="form-control select2" style="width: 100%;"></select> 
+                                  <select name="marca" id="marca" class="form-control select2" style="width: 100%;"onchange="generar_cod();" onkeyup="generar_cod();"></select> 
                                   
                                 </div>
                               </div>
@@ -157,7 +157,7 @@
                               <div class="col-lg-6">
                                 <div class="form-group">
                                   <label for="modelo">Modelo <sup class="text-danger">*</sup> </label>
-                                  <input class="form-control" type="text" id="modelo" name="modelo" placeholder="Modelo." />
+                                  <input class="form-control" type="text" id="modelo" name="modelo" placeholder="Modelo." onchange="generar_cod();" onkeyup="generar_cod();"/>
                                 </div>
                               </div>
 
@@ -228,7 +228,7 @@
                               <div class="col-lg-4 class_pading">
                                 <div class="form-group">
                                   <label for="codigo_producto">Codigo del Producto</label>
-                                  <input type="text" name="codigo_producto" class="form-control" id="codigo_producto" placeholder="codigo producto."/>
+                                  <input type="text" name="codigo_producto" class="form-control" id="codigo_producto" placeholder="codigo producto." readonly/>
                                 </div>
                               </div>
                               <!--Total-->

@@ -112,6 +112,34 @@ function limpiar() {
   $(".is-invalid").removeClass("error is-invalid");
 }
 
+function generar_cod() {
+  var nombre; var modelo; var marca;
+  var nom; var mod; var mar;
+
+  nombre=$('#nombre_producto').val();
+  modelo=$('#modelo').val();
+  marca=$("#marca option:selected").text();
+  console.log(nombre+'-'+modelo+'-'+marca);
+  if (nombre!="" && nombre==null && modelo!="" && modelo==null && marca!="" && marca==null) {
+
+    //toastr.success('Equipo de computo agregado');
+    console.log('oooooooooo');
+    $("#codigo_producto").val("");
+    $("#codigo_producto").html(`<i class="fas fa-spinner fa-pulse fa-6x"></i>`);
+  } else {
+
+    nom=nombre.substr(0,3);
+    mod=modelo.substr(0,3);
+    mar=marca.substr(0,3);
+
+    $("#codigo_producto").val(nom+'-'+mod+'-'+mar);
+
+
+  }
+
+  
+}
+
 //Función Listar
 function listar() {
   tabla = $("#tabla-productos")
@@ -256,9 +284,6 @@ function mostrar(idproducto) {
     $(".total_precio").val(parseFloat(data.precio_total).toFixed(2));    
      
   
-    
-    
-
     // FICHA TECNICA
     if (data.ficha_tecnica == "" || data.ficha_tecnica == null  ) {
 
