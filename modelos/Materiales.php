@@ -86,7 +86,6 @@ class Materiales
     p.descripcion as descripcion,
     p.imagen as imagen
     FROM producto as p, marca as m, categoria as c, ubicacion_producto as up 
-
     WHERE p.idproducto ='$idproducto' AND m.idmarca = p.idmarca AND c.idcategoria = p.idcategoria 
     AND up.idubicacion_producto = p.idubicacion_producto";
     
@@ -115,11 +114,27 @@ class Materiales
 
   //Implementar un método para listar los registros
   public function listar() {
-    $sql = "SELECT p.idproducto, p.idmarca, p.idcategoria, p.idcolor, p.nombre, p.modelo, p.serie, p.unidad_medida, 
-    p.precio_compra, p.porcentaje_utilidad, p.precio_venta, p.stock, p.codigo_producto, p.descripcion,up.nombre as ubicacion, 
-    p.imagen, p.estado, m.nombre as marca, c.nombre as categoria FROM producto as p, marca as m, categoria as c, ubicacion_producto 
-    as up WHERE p.idmarca=m.idmarca AND p.idcategoria=c.idcategoria 
-    AND p.idubicacion_producto=up.idubicacion_producto AND p.estado=1 AND p.estado_delete=1 ORDER BY p.nombre ASC;";
+    $sql = "SELECT p.idproducto, 
+    p.idmarca, 
+    p.idcategoria, 
+    p.idcolor, 
+    p.nombre, 
+    p.modelo, 
+    p.serie, 
+    p.unidad_medida, 
+    p.precio_compra,
+    p.porcentaje_utilidad,
+    p.precio_venta, 
+    p.stock, p.codigo_producto, p.descripcion,
+    up.nombre as ubicacion, 
+    p.imagen, p.estado, m.nombre as marca, 
+    c.nombre as categoria 
+    FROM producto as p,marca as m, 
+    categoria as c, ubicacion_producto 
+    as up WHERE p.idmarca=m.idmarca 
+    AND p.idcategoria=c.idcategoria 
+    AND p.idubicacion_producto=up.idubicacion_producto 
+    AND p.estado=1 AND p.estado_delete=1 ORDER BY p.nombre ASC;";
     return ejecutarConsulta($sql);
   }
   

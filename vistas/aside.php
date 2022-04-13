@@ -129,7 +129,7 @@
             <a href="#" class="nav-link" id="mRecurso">
               <i class="nav-icon fas fa-project-diagram"></i>
               <p>
-                Recursos
+                Compras
                 <i class="fas fa-angle-left right"></i>
                 <span class="badge badge-info right">4</span>
               </p>
@@ -169,66 +169,12 @@
           </li>
         <?php  }  ?>
 
-        <?php if ($_SESSION['activo_fijo_general']==1) {  ?>
+        <?php if ($_SESSION['servicio']==1) {  ?>
           <!-- ALL ACTIVOS FIJOS -->
           <li class="nav-item">
-            <a href="all_activos_fijos.php" class="nav-link" id="mAllactivos_fijos">
+            <a href="servicio.php" class="nav-link" id="mServicio">
               <i class="nav-icon fas fa-hand-holding-usd"></i>
-              <p>All activos fijos</p>
-            </a>
-          </li>
-        <?php  }  ?>
-
-        <?php if ($_SESSION['resumen_activo_fijo_general']==1) {  ?>
-          <!-- RESUMEN ACTIVOS FIJOS GENERAL-->
-          <li class="nav-item">
-            <a href="resumen_activos_fijos_general.php" class="nav-link" id="mResumenActivosFijosGeneral">
-              <i class="nav-icon fas fa-tasks"></i>
-              <p>Resumen activos fijos</p>
-            </a>
-          </li>
-        <?php  }  ?>
-
-        <?php if ($_SESSION['otra_factura']==1) {  ?>
-          <li class="nav-item ver-otros-modulos-1">
-            <a href="otra_factura.php" class="nav-link" id="lOtraFactura">
-              <i class="nav-icon fas fa-receipt"></i>
-              <p>
-                Otras Facturas               
-              </p>
-            </a>
-          </li>
-        <?php  }  ?>
-        
-        <?php if ($_SESSION['resumen_factura']==1) {  ?>
-          <li class="nav-item ver-otros-modulos-1">
-            <a href="resumen_factura.php" class="nav-link" id="lResumenFacura">            
-              <i class="nav-icon fas fa-poll"></i>
-              <p>
-                Resumen de Facturas               
-              </p>
-            </a>
-          </li>
-        <?php  }  ?>
-
-        <?php if ($_SESSION['Resumen_recibo_por_honorario']==1) {  ?>
-          <li class="nav-item ver-otros-modulos-1">
-            <a href="resumen_rh.php" class="nav-link" id="lResumenRH">            
-              <i class="nav-icon fas fa-poll"></i>
-              <p>
-                Resumen de RH            
-              </p>
-            </a>
-          </li>
-        <?php  }  ?>
-        
-        <?php if ($_SESSION['papelera']==1) {  ?>
-          <li class="nav-item ver-otros-modulos-1">
-            <a href="papelera.php" class="nav-link" id="mPapelera">
-              <i class="nav-icon fas fa-trash-alt"></i>
-              <p>
-                Papelera               
-              </p>
+              <p>Servicio</p>
             </a>
           </li>
         <?php  }  ?>

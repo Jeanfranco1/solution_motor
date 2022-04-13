@@ -240,26 +240,10 @@ switch ($_GET["op"]) {
       in_array(1, $valores) ? ($_SESSION['escritorio'] = 1) : ($_SESSION['escritorio'] = 0);
       in_array(2, $valores) ? ($_SESSION['acceso'] = 1) : ($_SESSION['acceso'] = 0);
       in_array(3, $valores) ? ($_SESSION['recurso'] = 1) : ($_SESSION['recurso'] = 0);
-      in_array(4, $valores) ? ($_SESSION['valorizacion'] = 1) : ($_SESSION['valorizacion'] = 0);
-      in_array(5, $valores) ? ($_SESSION['trabajador'] = 1) : ($_SESSION['trabajador'] = 0);
-      in_array(6, $valores) ? ($_SESSION['asistencia_trabajador'] = 1) : ($_SESSION['asistencia_trabajador'] = 0);
-      in_array(7, $valores) ? ($_SESSION['pago_trabajador'] = 1) : ($_SESSION['pago_trabajador'] = 0);
-      in_array(8, $valores) ? ($_SESSION['compra'] = 1) : ($_SESSION['compra'] = 0);
-      in_array(9, $valores) ? ($_SESSION['servicio_maquina'] = 1) : ($_SESSION['servicio_maquina'] = 0);
-      in_array(10, $valores) ? ($_SESSION['servicio_equipo'] = 1) : ($_SESSION['servicio_equipo'] = 0);
-      in_array(11, $valores) ? ($_SESSION['calendario'] = 1) : ($_SESSION['calendario'] = 0);
-      in_array(12, $valores) ? ($_SESSION['plano_otro'] = 1) : ($_SESSION['plano_otro'] = 0);
-      in_array(13, $valores) ? ($_SESSION['viatico'] = 1) : ($_SESSION['viatico'] = 0);
-      in_array(14, $valores) ? ($_SESSION['planilla_seguro'] = 1) : ($_SESSION['planilla_seguro'] = 0);
-      in_array(15, $valores) ? ($_SESSION['otro_gasto'] = 1) : ($_SESSION['otro_gasto'] = 0);
-      in_array(16, $valores) ? ($_SESSION['resumen_general'] = 1) : ($_SESSION['resumen_general'] = 0);
-      in_array(17, $valores) ? ($_SESSION['activo_fijo_general'] = 1) : ($_SESSION['activo_fijo_general'] = 0);
-      in_array(18, $valores) ? ($_SESSION['resumen_activo_fijo_general'] = 1) : ($_SESSION['resumen_activo_fijo_general'] = 0);
-      in_array(19, $valores) ? ($_SESSION['otra_factura'] = 1) : ($_SESSION['otra_factura'] = 0);
-      in_array(20, $valores) ? ($_SESSION['resumen_factura'] = 1) : ($_SESSION['resumen_factura'] = 0);
-      in_array(21, $valores) ? ($_SESSION['papelera'] = 1) : ($_SESSION['papelera'] = 0);
-      in_array(22, $valores) ? ($_SESSION['subcontrato'] = 1) : ($_SESSION['subcontrato'] = 0);
-      in_array(23, $valores) ? ($_SESSION['Resumen_recibo_por_honorario'] = 1) : ($_SESSION['Resumen_recibo_por_honorario'] = 0);
+      in_array(4, $valores) ? ($_SESSION['compra'] = 1) : ($_SESSION['compra'] = 0);
+      in_array(5, $valores) ? ($_SESSION['venta'] = 1) : ($_SESSION['venta'] = 0);
+      in_array(6, $valores) ? ($_SESSION['servicio'] = 1) : ($_SESSION['servicio'] = 0);
+      
     }
     echo json_encode($fetch);
   break;
