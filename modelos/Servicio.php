@@ -72,6 +72,7 @@ class Servicio
     s.prox_mantenimiento as prox_mantenimiento,
     s.informe_tecnico_entrada as informe_ingreso, 
     s.imagen_informe as imagen_informe,
+    ts.nombre as tipo_servicio,
     s.ficha_tecnica as  ficha_tecnica
     
     FROM servicios as s, tipo_servicio as ts
@@ -90,6 +91,7 @@ class Servicio
       'prox_mantenimiento'       => ($retVal_7 = empty($servicios['prox_mantenimiento']) ? '' :decodeCadenaHtml($servicios['prox_mantenimiento'])),
       'informe_ingreso' => ($retVal_8 = empty($servicios['informe_ingreso']) ? '' : $servicios['informe_ingreso']),
       'imagen_informe'=> ($retVal_9 = empty($servicios['imagen_informe']) ? '' : $servicios['imagen_informe']),
+      'tipo_servicio'=> ($retVal_9 = empty($servicios['tipo_servicio']) ? '' : $servicios['tipo_servicio']),
       'ficha_tecnica'=> ($retVal_10 = empty($servicios['ficha_tecnica']) ? '' : $servicios['ficha_tecnica']),
     );
     return $data;

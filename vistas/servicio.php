@@ -58,46 +58,81 @@
                       <div class="card card-primary card-outline">
                         <div class="card-header">
                           <h3 class="card-title">
-                            <button type="button" class="btn bg-gradient-success" data-toggle="modal" data-target="#modal-agregar-servicio" onclick="limpiar();"><i class="fas fa-plus-circle"></i> Agregar</button>
+                            <button type="button" class="btn bg-gradient-success" data-toggle="modal" id="add_servicio" data-target="#modal-agregar-servicio" onclick="limpiar();"><i class="fas fa-plus-circle"></i> Agregar</button>
                             Admnistra de manera eficiente los Servicios.
                           </h3>
+                          <!-- regresar "tabla principal" -->
+                          <h3 class="card-title mr-3" id="btn-regresar" style="display: none; padding-left: 2px;" >
+                            <button type="button" class="btn bg-gradient-warning btn-sm" onclick="table_show_hide(1);"  ><i class="fas fa-arrow-left"></i> <span class="d-none d-sm-inline-block">Regresar</span> </button>
+                          </h3>
+                           <!-- agregar Imagen  -->
+                           <h3 class="card-title " id="btn-agregar_img" style="display: none; padding-left: 2px;" >
+                            <button type="button" class="btn bg-gradient-success btn-sm" data-toggle="modal" data-target="#modal-agregar-imagen" onclick="limpiar_imagen();">
+                            <i class="fas fa-plus-circle"></i> Agregar Imagen 
+                            </button>                     
+                  
                         </div>
                         <!-- /.card-header -->
                         <div class="card-body">
-                          <table id="tabla-servicio" class="table table-bordered table-striped display" style="width: 100% !important;">
-                            <thead>
-                              <tr>
+                          <div id="tabla_principal">
+                            <table id="tabla-servicio" class="table table-bordered table-striped display" style="width: 100% !important;">
+                              <thead>
+                                <tr>
+                                  <th class="text-center">#</th>
+                                  <th class="">Acciones</th>
+                                  <th>tipo_servicio</th>
+                                  <th>Fec.Ingreso</th>
+                                  <th>Fec.salida </th>
+                                  <th>fec.prox_mant</th>
+                                  <th>Km. ingreso</th>
+                                  <th>Prox.matenimiento</th> 
+                                  <th>Imagenes</th>                             
+                                  <th>Estado</th>
+                                </tr>
+                              </thead>
+                              <tbody></tbody>
+                              <tfoot>
+                                <tr>
                                 <th class="text-center">#</th>
-                                <th class="">Acciones</th>
-                                <th>tipo_servicio</th>
-                                <th>Fec.Ingreso</th>
-                                <th>Fec.salida </th>
-                                <th>fec.prox_mant</th>
-                                <th>Km. ingreso</th>
-                                <th>Prox.matenimiento</th>
-                                <th>Informe de ingreso</th>
-                                <th>Ficha Tecnica</th>                               
-                                <th>Estado</th>
-                              </tr>
-                            </thead>
-                            <tbody></tbody>
-                            <tfoot>
-                              <tr>
-                              <th class="text-center">#</th>
-                                <th class="">Acciones</th>
-                                <th>Tipo_servicio</th>
-                                <th>Fec.Ingreso</th> 
-                                <th>Fec.salida</th>
-                                <th>Fec.prox_mant</th>
-                                <th>Km. ingreso</th>
-                                <th>Prox.matenimiento</th>
-                                <th>Informe de ingreso</th>
-                                <th>Ficha Tecnica</th>
-                                <th>Estado</th>
-                              </tr>
-                            </tfoot>
-                          </table>
+                                  <th class="">Acciones</th>
+                                  <th>Tipo_servicio</th>
+                                  <th>Fec.Ingreso</th> 
+                                  <th>Fec.salida</th>
+                                  <th>Fec.prox_mant</th>
+                                  <th>Km. ingreso</th>
+                                  <th>Prox.matenimiento</th> 
+                                  <th>Imagenes</th> 
+                                  <th>Estado</th>
+                                </tr>
+                              </tfoot>
+                            </table>
+                          </div>
+                          <div style="display: none;" id="tabla_imagen">
+                          <table id="tabla-imagen" class="table table-bordered table-striped display" style="width: 100% !important;">
+                              <thead>
+                                <tr>
+                                  <th class="text-center">#</th>
+                                  <th class="">Acciones</th>
+                                  <th>Tipo Imagen</th> 
+                                  <th>Imagen</th>                             
+                                  <th>Estado</th>
+                                </tr>
+                              </thead>
+                              <tbody></tbody>
+                              <tfoot>
+                                <tr>
+                                <th class="text-center">#</th>
+                                  <th class="">Acciones</th>
+                                  <th>Tipo Imagen</th> 
+                                  <th>Imagen</th>                             
+                                  <th>Estado</th>
+                                </tr>
+                              </tfoot>
+                            </table>
+                          </div>
+                          
                         </div>
+
                         <!-- /.card-body -->
                       </div>
                       <!-- /.card -->
@@ -190,7 +225,60 @@
                                   <label for="ficha_tecnica">Ficha Tecnica</label>
                                   <textarea name="ficha_tecnica" id="ficha_tecnica" class="form-control" rows="2" placeholder="Ficha Tecnica"></textarea> 
                                 </div>
-                              </div> 
+                              </div>     
+                            </div>
+
+                            <div class="row" id="cargando-2-fomulario" style="display: none;">
+                              <div class="col-lg-12 text-center">
+                                <i class="fas fa-spinner fa-pulse fa-6x"></i><br />
+                                <br />
+                                <h4>Cargando...</h4>
+                              </div>
+                            </div>
+                          </div>
+                          <!-- /.card-body -->
+                          <button type="submit" style="display: none;" id="submit-form-servicio">Submit</button>
+                        </form>
+                      </div>
+                      <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="limpiar();">Close</button>
+                        <button type="submit" class="btn btn-success" id="guardar_registro">Guardar Cambios</button>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <!-- Modal agregar imagen -->
+                <div class="modal fade" id="modal-agregar-imagen">
+                  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title">Agregar Imagen</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span class="text-danger" aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+
+                      <div class="modal-body">
+                        <!-- form start -->
+                        <form id="form-imagen" name="form-imagen" method="POST">
+                          <div class="card-body">
+                            <div class="row" id="cargando-1-fomulario">
+                              <!-- id producto -->
+                              <input type="hidden" name="idimagen_servicio" id="idimagen_servicio" />
+                              <input type="text" name="idservicio_img" id="idservicio_img" />
+                              
+                              
+                              <!--Imagen-->
+                              <div class="col-lg-6">
+                                <div class="form-group">
+                                  <label for="tipo_imagen">Tipo de imagen</label>
+                                  <select name="tipo_imagen" id="tipo_imagen" class="form-control select2" style="width: 100%;">        
+                                  <option value="Informe Ingreso">Informe Ingreso</option>  
+                                  <option value="Revisión Técnica">Revisión Técnica</option>  
+                                </select>
+
+                                </div>
+                              </div>
                               <!-- Ficha tecnica -->
                               <div class="col-md-6 col-lg-6">
                                 <label for="doc2_i" >Imagen<b class="text-danger">(Imagen o PDF)</b> </label>  
@@ -216,8 +304,6 @@
                                 </div>
                                 <div class="text-center" id="doc2_nombre"><!-- aqui va el nombre del pdf --></div>
                               </div>
-                            </div>
-
                             <div class="row" id="cargando-2-fomulario" style="display: none;">
                               <div class="col-lg-12 text-center">
                                 <i class="fas fa-spinner fa-pulse fa-6x"></i><br />
@@ -227,16 +313,60 @@
                             </div>
                           </div>
                           <!-- /.card-body -->
-                          <button type="submit" style="display: none;" id="submit-form-servicio">Submit</button>
+                          <button type="submit" style="display: none;" id="submit-form-imagen">Submit</button>
                         </form>
                       </div>
                       <div class="modal-footer justify-content-between">
                         <button type="button" class="btn btn-danger" data-dismiss="modal" onclick="limpiar();">Close</button>
-                        <button type="submit" class="btn btn-success" id="guardar_registro">Guardar Cambios</button>
+                        <button type="submit" class="btn btn-success" id="guardar_registro_imagen">Guardar Cambios</button>
                       </div>
                     </div>
                   </div>
                 </div>
+
+                <!--Modal ver datos-->
+
+                <div class="modal fade" id="modal-ver-transporte">
+                  <div class="modal-dialog modal-dialog-scrollable modal-xm">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                        <h4 class="modal-title">Datos proveedores</h4>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span class="text-danger" aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+
+                      <div class="modal-body">
+                        <div id="datostransporte" class="class-style"></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Modal ver imagen -->
+                <div class="modal fade" id="modal-ver-imagen">
+                  <div class="modal-dialog modal-dialog-scrollable modal-lg">
+                    <div class="modal-content">
+                      <div class="modal-header">
+                          <h4 class="modal-title"><b>Imagen Para: </b> <span class="text-warning" id="tipo_imagen"></span>  </h4>
+                          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                          <span class="text-danger" aria-hidden="true">&times;</span>
+                        </button>
+                      </div>
+
+                      <div class="modal-body">
+                          <div class="row">
+                            <div class="col-lg-12 text-center" id="ver_imagen">
+                            </div>
+                          </div>
+                      </div>
+                      <div class="modal-footer justify-content-between">
+                        <button type="button" class="btn btn-danger" data-dismiss="modal">Close</button> 
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
               </section>
               <!-- /.content -->
             </div>

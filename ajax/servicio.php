@@ -126,7 +126,8 @@
             $data[] = [
               "0"=>$cont++,
               "1" => $reg->estado ? '<button class="btn btn-warning btn-sm" onclick="mostrar(' . $reg->idservicios . ')"><i class="fas fa-pencil-alt"></i></button>' .
-              ' <button class="btn btn-danger btn-sm" onclick="eliminar(' . $reg->idservicios . ')"><i class="fas fa-skull-crossbones"></i></button>' : 
+              ' <button class="btn btn-danger btn-sm" onclick="eliminar(' . $reg->idservicios . ')"><i class="fas fa-skull-crossbones"></i></button>' . 
+              ' <button class="btn btn-info btn-sm" onclick="ver_datos(' . $reg->idservicios . ')"><i class="fas fa-eye"></i></button>' : 
               ' <button class="btn btn-warning btn-sm" onclick="mostrar(' . $reg->idservicios . ')"><i class="fa fa-pencil-alt"></i></button>'.
               ' <button class="btn btn-primary btn-sm" onclick="activar('.$reg->idservicios.')"><i class="fa fa-check"></i></button>',
               "2" => '<div class="user-block">
@@ -138,9 +139,8 @@
               "5" => $reg->fecha_prox_mantenimiento,
               "6" => $reg->kilometraje_entrada,
               "7" => $reg->prox_mantenimiento,
-              "8" => $reg->informe_tecnico_entrada,
-              "9" => $reg->ficha_tecnica,
-              "10" => $reg->estado ? '<span class="text-center badge badge-success">Activado</span>' : '<span class="text-center badge badge-danger">Desactivado</span>',
+              "8" => '<center><button class="btn btn-warning btn-sm" onclick="seccion_img(' . $reg->idservicios . ')"><i class="fas fa-camera"></i></button></center>',
+              "9" => $reg->estado ? '<span class="text-center badge badge-success">Activado</span>' : '<span class="text-center badge badge-danger">Desactivado</span>',
             ];
           }
 

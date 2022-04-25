@@ -1,4 +1,5 @@
 var tabla;
+var tabla_imagen;
 
 //Función que se ejecuta al inicio
 function init() {
@@ -8,6 +9,7 @@ function init() {
   $("#mServicio").addClass("active");
 
   $("#guardar_registro").on("click", function (e) { $("#submit-form-servicio").submit(); });
+  $("#guardar_registro_imagen").on("click", function (e) { $("#submit-form-imagen").submit(); });
 
   //Mostramos tipo_servicio
   $.post("../ajax/tipo_servicio.php?op=selecttipo_servicio", function (r) { $("#tipo_servicio").html(r); });
@@ -45,6 +47,7 @@ function doc2_eliminar() {
 //Función limpiar
 function limpiar() {
   //Mostramos los servicio
+
   $("#idservicios").val("");
   $("#tipo_servicio").val("null").trigger("change");
   $("#fecha_ingreso").val("");
@@ -53,9 +56,16 @@ function limpiar() {
   $("#Km_ingreso").val("");
   $("#prox_mantenimiento").val("");
   $("#informe_ingreso").val("");
-
   $("#ficha_tecnica").val("");
 
+  $(".form-control").removeClass("is-valid");
+  $(".is-invalid").removeClass("error is-invalid");
+}
+function limpiar_imagen() {
+  //Mostramos los servicio
+
+  $("#idimagen_servicio").val("");
+  $("#tipo_imagen").val("");
   $("#doc_old_2").val("");
   $("#doc2").val("");  
   $('#doc2_ver').html(`<img src="../dist/svg/pdf_trasnparent.svg" alt="" width="50%" >`);
@@ -66,34 +76,35 @@ function limpiar() {
   $(".is-invalid").removeClass("error is-invalid");
 }
 
-function generar_cod() {
-  var nombre; var modelo; var marca;
-  var nom; var mod; var mar;
-
-  nombre=$('#nombre_producto').val();
-  modelo=$('#modelo').val();
-  marca=$("#marca option:selected").text();
-  console.log(nombre+'-'+modelo+'-'+marca);
-  if (nombre!="" && nombre==null && modelo!="" && modelo==null && marca!="" && marca==null) {
+function table_show_hide(estado) {
+ 
+  if (estado==1) {
 
     //toastr.success('Equipo de computo agregado');
     console.log('oooooooooo');
-    $("#codigo_producto").val("");
-    $("#codigo_producto").html(`<i class="fas fa-spinner fa-pulse fa-6x"></i>`);
-  } else {
+    $("#tabla_principal").show();
+    $("#tabla_imagen").hide();
+    $("#add_servicio").show();
+    $("#btn-regresar").hide();
+    $("#btn-agregar_img").hide();
 
-    nom=nombre.substr(0,3);
-    mod=modelo.substr(0,3);
-    mar=marca.substr(0,3);
-
-    $("#codigo_producto").val(nom+'-'+mod+'-'+mar);
-
-
+ 
   }
+  if (estado==2) {
+
+    //toastr.success('Equipo de computo agregado');
+    console.log('oooooooooo');
+    $("#tabla_principal").hide();
+    $("#tabla_imagen").show();
+    $("#add_servicio").hide();
+    $("#btn-regresar").show();
+    $("#btn-agregar_img").show();
+
+ 
+  } 
 
   
 }
-
 //Función Listar
 function listar() {
   tabla = $("#tabla-servicio")
@@ -162,7 +173,6 @@ function listar() {
     .DataTable();
 }
 //Función para guardar o editar
-
 function guardaryeditar(e) {
   // e.preventDefault(); //No se activará la acción predeterminada del evento
   var formData = new FormData($("#form-servicio")[0]);
@@ -190,6 +200,32 @@ function guardaryeditar(e) {
   });
 }
 
+function guardaryeditar_imagen(e) {
+  // e.preventDefault(); //No se activará la acción predeterminada del evento
+  var formData = new FormData($("#form-imagen")[0]);
+
+  $.ajax({
+    url: "../ajax/imagen_servicio.php?op=guardaryeditar_imagen",
+    type: "POST",
+    data: formData,
+    contentType: false,
+    processData: false,
+
+    success: function (datos) {
+      if (datos == "ok") {
+        Swal.fire("Correcto!", "Insumo guardado correctamente", "success");
+
+        tabla.ajax.reload();
+
+        limpiar();
+
+        $("#modal-agregar-imagen").modal("hide");
+      } else {
+        Swal.fire("Error!", datos, "error");
+      }
+    },
+  });
+}
 function mostrar(idservicios) {
   limpiar(); //console.log(idservicios);
 
@@ -216,12 +252,12 @@ function mostrar(idservicios) {
     $("#Km_ingreso").val(data.Km_ingreso);           
     $("#prox_mantenimiento").val(data.prox_mantenimiento);
     $("#informe_ingreso").val(data.informe_ingreso);
-    $("#imagen_informe").val(data.imagen_informe);
+    $("#imagen").val(data.imagen);
     $("#ficha_tecnica").val(data.ficha_tecnica);
     
 
     // FICHA TECNICA
-    if (data.imagen_informe == "" || data.imagen_informe == null  ) {
+    if (data.imagen == "" || data.imagen == null  ) {
 
       $("#doc2_ver").html('<img src="../dist/svg/pdf_trasnparent.svg" alt="" width="50%" >');
 
@@ -231,23 +267,23 @@ function mostrar(idservicios) {
 
     } else {
 
-      $("#doc_old_2").val(data.imagen_informe); 
+      $("#doc_old_2").val(data.imagen); 
 
-      $("#doc2_nombre").html(`<div class="row"> <div class="col-md-12"><i>Ficha-tecnica.${extrae_extencion(data.imagen_informe)}</i></div></div>`);
+      $("#doc2_nombre").html(`<div class="row"> <div class="col-md-12"><i>Ficha-tecnica.${extrae_extencion(data.imagen)}</i></div></div>`);
       
       // cargamos la imagen adecuada par el archivo
-      if ( extrae_extencion(data.imagen_informe) == "pdf" ) {
+      if ( extrae_extencion(data.imagen) == "pdf" ) {
 
-        $("#doc2_ver").html('<iframe src="../dist/docs/material/img_perfil/'+data.imagen_informe+'" frameborder="0" scrolling="no" width="100%" height="210"> </iframe>');
+        $("#doc2_ver").html('<iframe src="../dist/docs/material/img_perfil/'+data.imagen+'" frameborder="0" scrolling="no" width="100%" height="210"> </iframe>');
 
       }else{
         if (
-          extrae_extencion(data.imagen_informe) == "jpeg" || extrae_extencion(data.imagen_informe) == "jpg" || extrae_extencion(data.imagen_informe) == "jpe" ||
-          extrae_extencion(data.imagen_informe) == "jfif" || extrae_extencion(data.imagen_informe) == "gif" || extrae_extencion(data.imagen_informe) == "png" ||
-          extrae_extencion(data.imagen_informe) == "tiff" || extrae_extencion(data.imagen_informe) == "tif" || extrae_extencion(data.imagen_informe) == "webp" ||
-          extrae_extencion(data.imagen_informe) == "bmp" || extrae_extencion(data.imagen_informe) == "svg" ) {
+          extrae_extencion(data.imagen) == "jpeg" || extrae_extencion(data.imagen) == "jpg" || extrae_extencion(data.imagen) == "jpe" ||
+          extrae_extencion(data.imagen) == "jfif" || extrae_extencion(data.imagen) == "gif" || extrae_extencion(data.imagen) == "png" ||
+          extrae_extencion(data.imagen) == "tiff" || extrae_extencion(data.imagen) == "tif" || extrae_extencion(data.imagen) == "webp" ||
+          extrae_extencion(data.imagen) == "bmp" || extrae_extencion(data.imagen) == "svg" ) {
 
-          $("#doc2_ver").html(`<img src="../dist/docs/material/img_perfil/${data.imagen_informe}" alt="" width="50%" onerror="this.src='../dist/svg/error-404-x.svg';" >`); 
+          $("#doc2_ver").html(`<img src="../dist/docs/material/img_perfil/${data.imagen}" alt="" width="50%" onerror="this.src='../dist/svg/error-404-x.svg';" >`); 
           
         } else {
           $("#doc2_ver").html('<img src="../dist/svg/doc_si_extencion.svg" alt="" width="50%" >');
@@ -256,7 +292,66 @@ function mostrar(idservicios) {
     }
   });
 }
+function mostrar_imagen(idimagen_servicio) {
+  limpiar(); //console.log(idimagen_servicio);
 
+  //$("#proveedor").val("").trigger("change");
+  $("#cargando-1-fomulario").hide();
+  $("#cargando-2-fomulario").show();
+
+  $("#modal-agregar-imagen").modal("show");
+
+  $("#tipo_servicio").val("").trigger("change");
+
+  $.post("../ajax/imagen_servicio.php?op=mostrar_imagen", { idimagen_servicio: idimagen_servicio}, function (data, status) {
+    
+    data = JSON.parse(data); console.log(data);
+
+    $("#cargando-1-fomulario").show();
+    $("#cargando-2-fomulario").hide();
+
+    $("#idimagen_servicio").val(data.idimagen_servicio);
+    $("#idservicios").val(data.idservicios);
+    $("#tipo_imagen").val(data.tipo_imagen).trigger("change");
+    $("#imagen").val(data.imagen);
+    
+
+    // FICHA TECNICA
+    if (data.imagen == "" || data.imagen == null  ) {
+
+      $("#doc2_ver").html('<img src="../dist/svg/pdf_trasnparent.svg" alt="" width="50%" >');
+
+      $("#doc2_nombre").html('');
+
+      $("#doc_old_2").val(""); $("#doc2").val("");
+
+    } else {
+
+      $("#doc_old_2").val(data.imagen); 
+
+      $("#doc2_nombre").html(`<div class="row"> <div class="col-md-12"><i>Ficha-tecnica.${extrae_extencion(data.imagen)}</i></div></div>`);
+      
+      // cargamos la imagen adecuada par el archivo
+      if ( extrae_extencion(data.imagen) == "pdf" ) {
+
+        $("#doc2_ver").html('<iframe src="../dist/docs/material/img_perfil/'+data.imagen+'" frameborder="0" scrolling="no" width="100%" height="210"> </iframe>');
+
+      }else{
+        if (
+          extrae_extencion(data.imagen) == "jpeg" || extrae_extencion(data.imagen) == "jpg" || extrae_extencion(data.imagen) == "jpe" ||
+          extrae_extencion(data.imagen) == "jfif" || extrae_extencion(data.imagen) == "gif" || extrae_extencion(data.imagen) == "png" ||
+          extrae_extencion(data.imagen) == "tiff" || extrae_extencion(data.imagen) == "tif" || extrae_extencion(data.imagen) == "webp" ||
+          extrae_extencion(data.imagen) == "bmp" || extrae_extencion(data.imagen) == "svg" ) {
+
+          $("#doc2_ver").html(`<img src="../dist/docs/material/img_perfil/${data.imagen}" alt="" width="50%" onerror="this.src='../dist/svg/error-404-x.svg';" >`); 
+          
+        } else {
+          $("#doc2_ver").html('<img src="../dist/svg/doc_si_extencion.svg" alt="" width="50%" >');
+        }        
+      }      
+    }
+  });
+}
 //Función para desactivar registros
 function desactivar(idservicios) {
   Swal.fire({
@@ -277,7 +372,25 @@ function desactivar(idservicios) {
     }
   });
 }
+function desactivar_imagen(idimagen_servicio) {
+  Swal.fire({
+    title: "¿Está Seguro de  Desactivar el registro?",
+    text: "",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#28a745",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Si, desactivar!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.post("../ajax/imagen_servicio.php?op=desactivar_imagen", { idimagen_servicio: idimagen_servicio }, function (e) {
+        Swal.fire("Desactivado!", "Tu registro ha sido desactivado.", "success");
 
+        tabla.ajax.reload();
+      });
+    }
+  });
+}
 //Función para activar registros
 function activar(idservicios) {
   Swal.fire({
@@ -298,7 +411,25 @@ function activar(idservicios) {
     }
   });
 }
+function activar_imagen(idimagen_servicio) {
+  Swal.fire({
+    title: "¿Está Seguro de  Activar el registro?",
+    text: "Este proveedor tendra acceso al sistema",
+    icon: "warning",
+    showCancelButton: true,
+    confirmButtonColor: "#28a745",
+    cancelButtonColor: "#d33",
+    confirmButtonText: "Si, activar!",
+  }).then((result) => {
+    if (result.isConfirmed) {
+      $.post("../ajax/imagen_servicio.php?op=activar_imagen", { idimagen_servicio: idimagen_servicio }, function (e) {
+        Swal.fire("Activado!", "Tu registro ha sido activado.", "success");
 
+        tabla.ajax.reload();
+      });
+    }
+  });
+}
 //Función para desactivar registros
 function eliminar(idservicios) {
    //----------------------------
@@ -337,39 +468,204 @@ function eliminar(idservicios) {
 
 });
 }
+function eliminar_imagen(idimagen_servicio) {
+  //----------------------------
+Swal.fire({
 
-function cal_precio_venta() {
- var precio_venta = 0;
- var porcentaje = 0;
- var precio_compra = 0;
+ title: "!Elija una opción¡",
+ html: "En <b>papelera</b> encontrará este registro! <br> Al <b>eliminar</b> no tendrá acceso a recuperar este registro!",
+ icon: "warning",
+ showCancelButton: true,
+ showDenyButton: true,
+ confirmButtonColor: "#17a2b8",
+ denyButtonColor: "#d33",
+ cancelButtonColor: "#6c757d",    
+ confirmButtonText: `<i class="fas fa-times"></i> Papelera`,
+ denyButtonText: `<i class="fas fa-skull-crossbones"></i> Eliminar`,
 
- if ($("#precio_compra").val()=="" && $("#precio_compra").val()==null && $("#porcentaje").val()=="" && $("#porcentaje").val()==null) {
- precio_venta = 0.00; 
- $("#precio_venta").val(precio_venta.toFixed(2));
+}).then((result) => {
 
- } else {
-  
-  porcentaje = $("#porcentaje").val();
-  
-  precio_compra = $("#precio_compra").val();
+ if (result.isConfirmed) {
+  //op=desactivar
+   $.post("../ajax/imagen_servicio.php?op=desactivar_imagen", { idimagen_servicio: idimagen_servicio }, function (e) {
+     Swal.fire("Desactivado!", "Tu registro ha sido desactivado.", "success");
 
-  if (porcentaje!="" && precio_compra!="") {
-    
-    precio_venta=parseFloat((precio_compra*(porcentaje/100)))+parseFloat(precio_compra);
-    console.log();
-    $("#precio_venta").val(precio_venta.toFixed(2));
+     tabla.ajax.reload();
+   });
 
-  } else {
-    
-    precio_venta = 0.00; 
+ }else if (result.isDenied) {
+  //op=eliminar
+   $.post("../ajax/imagen_servicio.php?op=eliminar_imagen", { idimagen_servicio: idimagen_servicio }, function (e) {
+     Swal.fire("Eliminado!", "Tu registro ha sido Eliminado.", "success");
 
-    $("#precio_venta").val(precio_venta.toFixed(2));
-
-  }
+     tabla.ajax.reload();
+   });
 
  }
- 
-precio_total = $("#precio_unitario").val();
+
+});
+}
+
+function ver_datos(idservicios) {
+
+  $("#modal-ver-transporte").modal("show")
+  var comprobante=''; var btn_comprobante='';
+  $.post("../ajax/servicio.php?op=mostrar", { idservicios: idservicios }, function (data, status) {
+
+    data = JSON.parse(data);  console.log(data); 
+    
+
+    verdatos=`                                                                            
+    <div class="col-12">
+      <div class="card">
+        <div class="card-body">
+          <table class="table table-hover table-bordered">        
+            <tbody>
+              <tr data-widget="expandable-table" aria-expanded="false">
+                <th>Tipo Servicio</th>
+                <td>${data.tipo_servicio}</td>  
+              </tr>
+              <tr data-widget="expandable-table" aria-expanded="false">
+                <th>Fec.Ingreso</th>
+                <td>${data.fecha_ingreso}</td>
+              </tr>
+              <tr data-widget="expandable-table" aria-expanded="false">
+                <th>Fec.Salida</th>
+                <td>${data.fecha_salida}</td>
+              </tr>
+              <tr data-widget="expandable-table" aria-expanded="false">
+                <th>Fec.prox_mant</th>
+                <td>${data.fec_prox_mant}</td>
+              </tr>
+              <tr data-widget="expandable-table" aria-expanded="false">
+                <th>Km. ingreso</th>
+                <td>${data.Km_ingreso}</td>
+              </tr>
+              <tr data-widget="expandable-table" aria-expanded="false">
+                <th>Prox.matenimiento</th>
+                  <td>${data.prox_mantenimiento}</td>
+              </tr>
+              <tr data-widget="expandable-table" aria-expanded="false">
+                <th>Informe de ingreso</th>
+                <td>${data.informe_ingreso}</td>
+              </tr>
+              <tr data-widget="expandable-table" aria-expanded="false">
+                <th>Ficha Tecnica </th>
+                <td>${data.ficha_tecnica}</td>
+              </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>`;
+  
+    $("#datostransporte").html(verdatos);
+
+  });
+}
+//Función Listar
+function seccion_img(idservicios) {
+
+  $('#idservicio_img').val(idservicios);
+  table_show_hide(2);
+  tabla_imagen = $("#tabla-imagen")
+    .dataTable({
+      responsive: true,
+      lengthMenu: [5, 10, 25, 75, 100], //mostramos el menú de registros a revisar
+      aProcessing: true, //Activamos el procesamiento del datatables
+      aServerSide: true, //Paginación y filtrado realizados por el servidor
+      dom: "<Bl<f>rtip>", //Definimos los elementos del control de tabla
+      buttons: ["copyHtml5", "excelHtml5", "csvHtml5", "pdf", "colvis"],
+      ajax: {
+        url: "../ajax/imagen_servicio.php?op=listar_imagen",
+        type: "get",
+        dataType: "json",
+        error: function (e) {
+          console.log(e.responseText);
+        },
+      },
+      createdRow: function (row, data, ixdex) {    
+  
+        // columna: #
+        if (data[0] != '') {
+          $("td", row).eq(0).addClass("text-center");   
+            
+        }
+        // columna: 1
+        if (data[1] != '') {
+          $("td", row).eq(1).addClass("text-center text-nowrap");   
+            
+        }
+        // columna: # 5
+        if (data[5] != '') {
+          $("td", row).eq(5).addClass("text-right text-nowrap");   
+            
+        }
+        // columna: # 6
+        if (data[6] != '') {
+          $("td", row).eq(6).addClass("text-right text-nowrap");   
+            
+        }
+        // columna: # 7
+        if (data[7] != '') {
+          $("td", row).eq(7).addClass("text-right text-nowrap");   
+            
+        }
+        // columna: #8
+        if (data[8] != '') {
+          $("td", row).eq(8).addClass("text-right text-nowrap");   
+            
+        }
+      },
+      language: {
+        lengthMenu: "Mostrar : _MENU_ registros",
+        buttons: {
+          copyTitle: "Tabla Copiada",
+          copySuccess: {
+            _: "%d líneas copiadas",
+            1: "1 línea copiada",
+          },
+        },
+      },
+      bDestroy: true,
+      iDisplayLength: 10, //Paginación
+      order: [[0, "asc"]], //Ordenar (columna,orden)
+    })
+    .DataTable();
+}
+function ver_img_perfil(img_perfil,tipo_imagen){
+  console.log(img_perfil,tipo_imagen);
+
+  $('#modal-ver-imagen').modal("show");
+  $('#tipo_imagen').html(tipo_imagen);
+
+  if (img_perfil == "" || img_perfil == null  ) {
+
+    $("#ver_imagen").html('<img src="../dist/svg/drag-n-drop.svg" alt="" width="50%" >');
+
+  } else {
+    $("#doc1_nombre").html(`<div class="row"> <div class="col-md-12"><i>Baucher.${extrae_extencion(img_perfil)}</i></div></div>`);
+    
+    // cargamos la imagen adecuada par el archivo
+    if ( extrae_extencion(img_perfil) == "pdf" ) {
+
+      $("#ver_imagen").html('<iframe src="../dist/docs/material/img_perfil/'+img_perfil+'" frameborder="0" scrolling="no" width="100%" height="210"> </iframe>');
+
+    }else{
+      if (
+      extrae_extencion(img_perfil) == "jpeg" || extrae_extencion(img_perfil) == "jpg" || extrae_extencion(img_perfil) == "jpe" ||
+      extrae_extencion(img_perfil) == "jfif" || extrae_extencion(img_perfil) == "gif" || extrae_extencion(img_perfil) == "png" ||
+      extrae_extencion(img_perfil) == "tiff" || extrae_extencion(img_perfil) == "tif" || extrae_extencion(img_perfil) == "webp" ||
+      extrae_extencion(img_perfil) == "bmp" || extrae_extencion(img_perfil) == "svg" ) {
+
+      $("#ver_imagen").html(`<img src="../dist/docs/material/img_perfil/${img_perfil}" alt="" width="80%" onerror="this.src='../dist/svg/error-404-x.svg';" >`); 
+      
+    } else {
+      $("#ver_imagen").html('<img src="../dist/svg/doc_si_extencion.svg" alt="" width="50%" >');
+    }        
+  }      
+}
+
 }
 
 
@@ -432,6 +728,46 @@ $(function () {
     },
   });
 });
+
+$(function () {
+  $.validator.setDefaults({
+    submitHandler: function (e) {
+      guardaryeditar_imagen(e);
+    },
+  });
+
+  $("#form-imagen").validate({
+    rules: {
+      tipo_imagen: { required: true },
+  
+      
+    },
+    messages: {
+      tipo_imagen: {
+        required: "Por favor ingrese el tipo de imagen",
+      },
+     
+
+    },
+
+    errorElement: "span",
+
+    errorPlacement: function (error, element) {
+      error.addClass("invalid-feedback");
+
+      element.closest(".form-group").append(error);
+    },
+
+    highlight: function (element, errorClass, validClass) {
+      $(element).addClass("is-invalid");
+    },
+
+    unhighlight: function (element, errorClass, validClass) {
+      $(element).removeClass("is-invalid").addClass("is-valid");
+    },
+  });
+});
+
 
 
 // .....::::::::::::::::::::::::::::::::::::: F U N C I O N E S    A L T E R N A S  :::::::::::::::::::::::::::::::::::::::..
