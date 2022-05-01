@@ -78,8 +78,9 @@ class Imagen_servicio
   }
 
   //Implementar un método para listar los registros
-  public function listar_imagen() {
-    $sql = "SELECT i.idimagen_servicio, i.tipo_imagen, i.imagen, i.estado FROM imagen_servicio as i WHERE i.estado=1 AND i.estado_delete=1;";
+  public function listar_imagen($idservicios) {
+    $sql = "SELECT i.idimagen_servicio, i.tipo_imagen, i.imagen, i.estado 
+    FROM imagen_servicio as i WHERE i.idservicios='$idservicios' AND i.estado=1 AND i.estado_delete=1;";
     return ejecutarConsulta($sql);
   }
   

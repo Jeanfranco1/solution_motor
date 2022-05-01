@@ -102,7 +102,7 @@
         break;
     
         case 'listar_imagen':
-          $rspta = $img_servicio->listar_imagen();
+          $rspta = $img_servicio->listar_imagen( $_GET['idservicios']);
           //Vamos a declarar un array
           $data = [];
           $imagen = '';

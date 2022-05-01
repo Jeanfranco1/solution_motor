@@ -137,7 +137,7 @@
             <ul class="nav nav-treeview ">
               <!-- Usuarios del sistema -->
               <li class="nav-item ">
-                <a href="compras.php" class="nav-link" id="compras">
+                <a href="compra.php" class="nav-link" id="compras">
                   <i class="nav-icon fas fa-users"></i>
                   <p>compras</p>
                 </a>
